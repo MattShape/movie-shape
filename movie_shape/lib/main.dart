@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_shape/helpers/constants.dart';
 
 void main() {
   runApp(const MainApp());
