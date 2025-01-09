@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_shape/helpers/constants.dart';
+import 'package:movie_shape/views/widgets/nav_rail.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,12 +11,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    var materialApp = MaterialApp(
+      theme: ThemeData(scaffoldBackgroundColor: AppConstants.primaryColour),
+      home: NavRail()
     );
+    return materialApp;
   }
 }
