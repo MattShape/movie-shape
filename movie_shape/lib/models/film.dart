@@ -9,12 +9,12 @@ class Film {
   final String runtime;
   final String genre;
   final String director;
-  final String writer;
-  final String actors;
+  final List<String> writer;
+  final List<String> actors;
   final String plot;
   final String language;
   final String country;
-  final String awards;
+  final List<String> awards;
   String poster;
   final List<Rating> ratings;
   final String metascore;
@@ -65,12 +65,18 @@ class Film {
       runtime: json['Runtime'] as String? ?? 'N/A',
       genre: json['Genre'] as String? ?? 'N/A',
       director: json['Director'] as String? ?? 'N/A',
-      writer: json['Writer'] as String? ?? 'N/A',
-      actors: json['Actors'] as String? ?? 'N/A',
+      // // convert csv string into list
+      writer: (json['Writer'] as String?)?.split(',').map((writer) => writer.trim()).toList() ?? ['N/A'],
+      // convert csv string into list
+      actors: (json['Actors'] as String?)?.split(',').map((actor) => actor.trim()).toList() ?? ['N/A'],
       plot: json['Plot'] as String? ?? 'N/A',
       language: json['Language'] as String? ?? 'N/A',
       country: json['Country'] as String? ?? 'N/A',
-      awards: json['Awards'] as String? ?? 'N/A',
+      //awards: json['Awards'] as String? ?? 'N/A',
+      awards: (json['Awards'] as String?) // Extract awards string
+        ?.split(RegExp(r'[.&]')) // Split by "." and "&"
+        .map((part) => part.trim()) // Trim whitespace
+        .toList() ?? [], // Default to empty list if null
       // if response is 'N/A' set to default poster, if null set to '', else keep url from response
       poster: Uri.tryParse(json['Poster'] ?? '')?.hasAbsolutePath == true
           ? json['Poster']
