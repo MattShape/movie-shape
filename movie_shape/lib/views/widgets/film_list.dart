@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_shape/models/film_summary.dart';
+import 'package:movie_shape/models/film.dart';
+import 'package:movie_shape/repository/film_repo.dart';
+import 'package:movie_shape/views/pages/film_detail_page.dart';
 
 class FilmList extends StatefulWidget {
   final List<FilmSummary> films;
@@ -11,6 +14,16 @@ class FilmList extends StatefulWidget {
 }
 
 class _FilmListState extends State<FilmList> {
+  Future<void> _goToDetailPage(String id) async {
+    Film film = await FilmRepo.fetchFilmById(id);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => FilmDetailPage(film: film),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -24,7 +37,7 @@ class _FilmListState extends State<FilmList> {
             subtitle: Text(film.year),
             leading: Image.network(film.poster),
             onTap: () {
-              // Handle film tap (e.g., navigate to film details screen)
+              _goToDetailPage(film.imdbID);
             },
           );
         },
