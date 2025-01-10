@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:movie_shape/models/film_search.dart';
+import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/repository/film_repo.dart';
 
 class CustomSearchBar extends StatefulWidget {
-  const CustomSearchBar({super.key});
+  final Function(List<FilmSummary>) onSearchResults;
+
+  const CustomSearchBar({super.key, required this.onSearchResults});
 
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
@@ -16,6 +19,11 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   Future<void> _handleSearch(String title) async {
     final FilmsSearch? response = await FilmRepo.fetchFilmByTitle(title);
     print(response?.films[0].title);
+    if (response != null) {
+      widget.onSearchResults(response.films);
+    } else {
+      widget.onSearchResults([]);
+    }
   }
 
   @override
