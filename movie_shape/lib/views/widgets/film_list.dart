@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/repository/film_repo.dart';
