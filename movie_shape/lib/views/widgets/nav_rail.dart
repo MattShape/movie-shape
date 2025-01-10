@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_shape/helpers/constants.dart';
+import 'package:movie_shape/views/pages/favourites_page.dart';
 import 'package:movie_shape/views/pages/home_page.dart';
+import 'package:movie_shape/views/pages/film_detail_page.dart';
+import 'package:movie_shape/models/film.dart';
+import 'package:movie_shape/repository/film_repo.dart';
 
 class NavRail extends StatefulWidget {
   const NavRail({super.key});
@@ -17,7 +21,7 @@ class _NavRailState extends State<NavRail> {
       case 0:
         return HomePage();
       case 1:
-        return Placeholder();
+        return FavouritesPage();
       case 2:
         return Placeholder();
       default:
