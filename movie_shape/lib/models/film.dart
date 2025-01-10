@@ -98,4 +98,64 @@ class Film {
 
     return film;
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Title': title,
+      'Year': year,
+      'Rated': rated,
+      'Released': released,
+      'Runtime': runtime,
+      'Genre': genre,
+      'Director': director,
+      'Writer': writer,
+      'Actors': actors,  
+      'Plot': plot,
+      'Language': language,
+      'Country': country,
+      'Awards': awards,  
+      'Poster': poster,
+      'Ratings': ratings.map((rating) => rating.toJson()).toList(),
+      'Metascore': metascore,
+      'imdbRating': imdbRating,
+      'imdbVotes': imdbVotes,
+      'imdbID': imdbId,
+      'Type': type,
+      'DVD': dvd,
+      'BoxOffice': boxOffice,
+      'Production': production,
+      'Response': response,
+    };
+  }
+
+  factory Film.fromCustomJson(Map<String, dynamic> json) {
+    return Film(
+      title: json['Title'] ?? 'N/A',
+      year: json['Year'] ?? 'N/A',
+      rated: json['Rated'] ?? 'N/A',
+      released: json['Released'] ?? 'N/A',
+      runtime: json['Runtime'] ?? 'N/A',
+      genre: json['Genre'] ?? 'N/A',
+      director: json['Director'] ?? 'N/A',
+      writer: List<String>.from(json['Writer'] ?? []),
+      actors: List<String>.from(json['Actors'] ?? []),
+      plot: json['Plot'] ?? 'N/A',
+      language: json['Language'] ?? 'N/A',
+      country: json['Country'] ?? 'N/A',
+      awards: List<String>.from(json['Awards'] ?? []),
+      poster: json['Poster'] ?? '',
+      ratings: (json['Ratings'] as List<dynamic>?)
+          ?.map((ratingJson) => Rating.fromJson(ratingJson))
+          .toList() ?? [],
+      metascore: json['Metascore'] ?? 'N/A',
+      imdbRating: json['imdbRating'] ?? 'N/A',
+      imdbVotes: json['imdbVotes'] ?? 'N/A',
+      imdbId: json['imdbID'] ?? 'N/A',
+      type: json['Type'] ?? 'N/A',
+      dvd: json['DVD'] ?? 'N/A',
+      boxOffice: json['BoxOffice'] ?? 'N/A',
+      production: json['Production'] ?? 'N/A',
+      response: json['Response'] ?? 'N/A',
+    );
+  }
 }

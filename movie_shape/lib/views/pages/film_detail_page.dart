@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film.dart';
+import 'package:movie_shape/views/widgets/favourites_button.dart';
 
 class FilmDetailPage extends StatelessWidget {
   const FilmDetailPage({super.key, required this.film});
@@ -39,19 +41,21 @@ class FilmDetailPage extends StatelessWidget {
                     child: ConstrainedBox(
                       constraints: BoxConstraints(
                         maxWidth: 600,
+                        maxHeight: 360
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                            Text(
-                              film.title,
-                              style: AppConstants.fontFamily( 
-                                color: AppConstants.textColour,
-                                fontSize: AppConstants.filmTitleSize,
-                                fontWeight: FontWeight.w500,
-                              )
-                            ),
-                          
+                          Spacer(),
+
+                          Text(
+                            film.title,
+                            style: AppConstants.fontFamily( 
+                              color: AppConstants.textColour,
+                              fontSize: AppConstants.filmTitleSize,
+                              fontWeight: FontWeight.w500,
+                            )
+                          ),
                           Text(
                             film.year,
                             style: AppConstants.fontFamily( 
@@ -74,6 +78,14 @@ class FilmDetailPage extends StatelessWidget {
                               fontSize: AppConstants.filmSubtitleSize,
                             )
                           ),
+                          Spacer(),
+                          Row(
+                            children: [
+                              Spacer(),
+
+                              FavouritesButton(film: film),
+                            ],
+                          )
                         ],
                       ),
                     ),

@@ -14,4 +14,11 @@ class Rating {
       value: json['Value'] as String, 
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Source': source,
+      'Value': value,
+    };
+  }
 }
