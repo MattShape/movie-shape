@@ -12,7 +12,7 @@ class FilmRepo {
 
   static Future<Film> fetchFilmById(String id) async {
     final response = await http
-        .get(Uri.parse('https://www.omdbapi.com/?apikey=810d5ee8&i=${id}'));
+        .get(Uri.parse('https://www.omdbapi.com/?apikey=810d5ee8&i=$id'));
 
     if (response.statusCode == 200) {
       return Film.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
@@ -25,7 +25,7 @@ class FilmRepo {
     final response = await http
         .get(Uri.parse("$_baseUrl?apikey=$_apiKey&type=movie&s=$title"));
 
-    print(response.statusCode);
+    // print(response.statusCode);
 
     if (response.statusCode == 200) {
       return FilmsSearch.fromJson(jsonDecode(response.body));
@@ -33,6 +33,4 @@ class FilmRepo {
       throw Exception("Fail");
     }
   }
-
-  // TODO: search by id request
 }

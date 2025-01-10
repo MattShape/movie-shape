@@ -18,7 +18,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
 
   Future<void> _handleSearch(String title) async {
     final FilmsSearch? response = await FilmRepo.fetchFilmByTitle(title);
-    print(response?.films[0].title);
+    // print(response?.films[0].title);
     if (response != null) {
       widget.onSearchResults(response.films);
     } else {

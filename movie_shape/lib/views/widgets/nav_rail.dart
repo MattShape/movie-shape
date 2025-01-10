@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/views/pages/home_page.dart';
-import 'package:movie_shape/views/widgets/searchbar.dart';
 
 class NavRail extends StatefulWidget {
   const NavRail({super.key});
