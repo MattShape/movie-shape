@@ -25,7 +25,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("MovieShape"),
+        backgroundColor: AppConstants.backgroundColour,
+        title: Text(
+          "MovieShape",
+          style: TextStyle(
+              fontSize: AppConstants.companyTitleSize,
+              color: AppConstants.textColour),
+        ),
       ),
       body: Column(
         children: [
