@@ -16,6 +16,7 @@ class AppConstants {
   static const double companyTitleSize = 64;
   static const double filmTitleSize = 48;
   static const double filmSubtitleSize = 24;
+  static const double bodySize = 16;
   static const double railbarFontSize = 24;
   static const double railbarIconSize = 32;
   static const double shapeCornerRadiusSize = 5;
