@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:movie_shape/models/film.dart';
+import 'package:movie_shape/models/film_summary.dart';
+import 'package:movie_shape/repository/film_repo_implemented.dart';
+import 'package:movie_shape/reusable/watchlist_button/list_card.dart';
+import 'package:movie_shape/views/pages/film_detail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -21,6 +25,16 @@ class _FavouritesPageState extends State<FavouritesPage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _goToDetailPage(String id) async {
+      Film film = await FilmRepoImplemented().getFilmById(id: id);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FilmDetailPage(film: film),
+        ),
+      );
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -47,10 +61,16 @@ class _FavouritesPageState extends State<FavouritesPage> {
                     itemBuilder: (context, index) {
                       final film = favouriteFilms[index];
 
-                      return ListTile(
-                        title: Text(film.title),
-                        subtitle: Text(film.year),
-                        leading: Image.network(film.poster),
+                      return ListCard(
+                        film: FilmSummary(
+                            title: film.title,
+                            year: film.year,
+                            imdbID: film.imdbId,
+                            type: film.type,
+                            poster: film.poster),
+                        onTap: (val) {
+                          _goToDetailPage(val);
+                        },
                       );
                     },
                   );
