@@ -13,6 +13,7 @@ class FilmRepoImplemented implements FilmRepo {
   static const String _apiKey = "f7594dee";
   static const String _baseUrl = "http://omdbapi.com/";
 
+  @override
   Future<Film> getFilmById({required String id}) async {
     final response = await http
         .get(Uri.parse('https://www.omdbapi.com/?apikey=810d5ee8&i=$id'));
@@ -24,6 +25,7 @@ class FilmRepoImplemented implements FilmRepo {
     }
   }
 
+  @override
   Future<List<FilmSummary>?> searchFilmsByTitle(
       {required String searchQuery}) async {
     final response = await http
@@ -101,8 +103,67 @@ class FilmRepoImplemented implements FilmRepo {
   }
 
   @override
-  Future<List<FilmSummary>?> getFavouritedFilms() {
-    // TODO: implement getFavouritedFilms
-    throw UnimplementedError();
+  Future<List<FilmSummary>?> getFavouritedFilms() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      // If favourites doesn't exist, initialise [] 
+      final filmJsonList = prefs.getStringList('favourites') ?? [];
+
+      if (filmJsonList.isEmpty) {
+        return [];
+      }
+
+      // Iterate and perform a transformation
+      return filmJsonList.map((filmJson) {
+        // Convert Json list to FilmSummary object
+        final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
+        return FilmSummary.fromJson(filmMap);
+      }).toList();
+    } catch (e) {
+      throw Exception('Failed to load watchlist: ${e.toString()}');
+    }
+  }
+  
+  @override
+  Future<void> addFilmToFavourites({required FilmSummary film}) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final filmJsonList = prefs.getStringList('favourites') ?? [];
+
+      // Check if film already exists in watchlist
+      final exists = filmJsonList.any((filmJson) {
+        final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
+        final existingFilm = FilmSummary.fromJson(filmMap);
+        return existingFilm.imdbID == film.imdbID;
+      });
+
+      if (!exists) {
+        // Convert FilmSummary to JSON string and add to list
+        final filmJson = jsonEncode(film.toJson());
+        filmJsonList.add(filmJson);
+        await prefs.setStringList('watchlist', filmJsonList);
+      }
+    } catch (e) {
+      throw Exception('Failed to add film to watchlist: ${e.toString()}');
+    }
+  }
+  
+  @override
+  Future<void> removeFilmFromFavourites({required FilmSummary film}) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final filmJsonList = prefs.getStringList('favourites') ?? [];
+
+      // Find and remove the film with matching imdbID
+      filmJsonList.removeWhere((filmJson) {
+        final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
+        final existingFilm = FilmSummary.fromJson(filmMap);
+        return existingFilm.imdbID == film.imdbID;
+      });
+
+      await prefs.setStringList('watchlist', filmJsonList);
+    } catch (e) {
+      throw Exception('Failed to remove film from watchlist: ${e.toString()}');
+    }
   }
 }

@@ -5,6 +5,8 @@ abstract class FilmRepo {
   Future<Film> getFilmById({required String id});
   Future<List<FilmSummary>?> searchFilmsByTitle({required String searchQuery});
   Future<List<FilmSummary>?> getFavouritedFilms();
+  Future<void> addFilmToFavourites({required FilmSummary film});
+  Future<void> removeFilmFromFavourites({required FilmSummary film});
   Future<List<FilmSummary>?> getWatchlistFilms();
   Future<void> addFilmToWatchlist({required FilmSummary film});
   Future<void> removeFilmFromWatchlist({required FilmSummary film});
