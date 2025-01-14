@@ -42,7 +42,7 @@ class FilmRepoImplemented implements FilmRepo {
         throw Exception("Fail");
       }
     } catch (e) {
-      throw Exception("failed to load film list: ${e.toString()}")
+      throw Exception("failed to load film list: ${e.toString()}");
     }
   }
 
