@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/models/film.dart';
-import 'package:movie_shape/repository/film_repo.dart';
+import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
 
 class FilmList extends StatefulWidget {
@@ -16,7 +16,7 @@ class FilmList extends StatefulWidget {
 
 class _FilmListState extends State<FilmList> {
   Future<void> _goToDetailPage(String id) async {
-    Film film = await FilmRepo.fetchFilmById(id);
+    Film film = await FilmRepoImplemented().getFilmById(id: id);
     Navigator.push(
       context,
       MaterialPageRoute(
