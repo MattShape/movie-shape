@@ -13,9 +13,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: AppConstants.primaryColour),
-      home: NavRail()
-    );
+        theme: ThemeData(scaffoldBackgroundColor: AppConstants.primaryColour),
+        home: NavRail());
     setupEmptyList();
     return materialApp;
   }

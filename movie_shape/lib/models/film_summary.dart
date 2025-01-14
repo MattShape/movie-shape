@@ -6,16 +6,16 @@ class FilmSummary {
   final String type;
   final String poster;
 
-  FilmSummary({
-    required this.title, 
-    required this.year, 
-    required this.imdbID, 
-    required this.type, 
-    required this.poster
-  });
+  FilmSummary(
+      {required this.title,
+      required this.year,
+      required this.imdbID,
+      required this.type,
+      required this.poster});
 
   factory FilmSummary.fromJson(Map<String, dynamic> json) {
-    const String defaultPosterUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
+    const String defaultPosterUrl =
+        'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
     var filmSummary = FilmSummary(
       title: json['Title'] ?? 'Unknown Title',
@@ -29,5 +29,15 @@ class FilmSummary {
     );
 
     return filmSummary;
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'Title': title,
+      'Year': year,
+      'imdbID': imdbID,
+      'Type': type,
+      'Poster': poster,
+    };
   }
 }
