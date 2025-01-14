@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/models/film_summary.dart';
+import 'package:movie_shape/reusable/favourite_button/favourite_button.dart';
 import 'package:movie_shape/reusable/watchlist_button/watchlist_button.dart';
-import 'package:movie_shape/views/widgets/favourites_button.dart';
 
 class FilmDetailPage extends StatelessWidget {
   const FilmDetailPage({super.key, required this.film});
@@ -74,10 +73,21 @@ class FilmDetailPage extends StatelessWidget {
                           Row(
                             children: [
                               Spacer(),
-                              FavouritesButton(film: film),
+                              
+                              FavouriteButton(film: FilmSummary(
+                                  title: film.title, 
+                                  year: film.year, 
+                                  imdbID: film.imdbId, 
+                                  type: film.type, 
+                                  poster: film.poster
+                                )
+                              ),
+
+                              // spacing
                               Container(
                                 width: 20,
                               ),
+
                               WatchlistButton(
                                   film: FilmSummary(
                                 title: film.title,
@@ -169,7 +179,7 @@ class FilmDetailPage extends StatelessWidget {
                               fontSize: AppConstants.bodySize)),
 
                       // scrolling cast names
-                      Container(
+                      SizedBox(
                         height: 100,
                         child: SingleChildScrollView(
                             child: Column(
@@ -200,7 +210,7 @@ class FilmDetailPage extends StatelessWidget {
                           )),
 
                       // scrolling crew names
-                      Container(
+                      SizedBox(
                         height: 100,
                         child: SingleChildScrollView(
                             child: Column(
@@ -231,7 +241,7 @@ class FilmDetailPage extends StatelessWidget {
                           )),
 
                       // scrolling awards names
-                      Container(
+                      SizedBox(
                         height: 100,
                         child: SingleChildScrollView(
                             child: Column(

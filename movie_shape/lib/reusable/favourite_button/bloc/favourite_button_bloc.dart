@@ -47,11 +47,11 @@ class FavouriteButtonBloc extends Bloc<FavouriteButtonEvent, FavouriteButtonStat
       if (favouritesList != null) {
         isInFavouritesList = 
             favouritesList.any((film) => film.imdbID == event.film.imdbID);
+        print("isInFavouritesList: ${isInFavouritesList}");
       }
       
       if (isInFavouritesList) {
         await FilmRepoImplemented().removeFilmFromFavourites(film: event.film);
-
         emit(FavouriteButtonLoaded(false));
       } else {
         await FilmRepoImplemented().addFilmToFavourites(film: event.film);

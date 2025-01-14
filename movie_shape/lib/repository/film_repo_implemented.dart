@@ -120,7 +120,7 @@ class FilmRepoImplemented implements FilmRepo {
         return FilmSummary.fromJson(filmMap);
       }).toList();
     } catch (e) {
-      throw Exception('Failed to load watchlist: ${e.toString()}');
+      throw Exception('Failed to load favourites: ${e.toString()}');
     }
   }
   
@@ -141,10 +141,10 @@ class FilmRepoImplemented implements FilmRepo {
         // Convert FilmSummary to JSON string and add to list
         final filmJson = jsonEncode(film.toJson());
         filmJsonList.add(filmJson);
-        await prefs.setStringList('watchlist', filmJsonList);
+        await prefs.setStringList('favourites', filmJsonList);
       }
     } catch (e) {
-      throw Exception('Failed to add film to watchlist: ${e.toString()}');
+      throw Exception('Failed to add film to favourites: ${e.toString()}');
     }
   }
   
@@ -161,9 +161,9 @@ class FilmRepoImplemented implements FilmRepo {
         return existingFilm.imdbID == film.imdbID;
       });
 
-      await prefs.setStringList('watchlist', filmJsonList);
+      await prefs.setStringList('favourites', filmJsonList);
     } catch (e) {
-      throw Exception('Failed to remove film from watchlist: ${e.toString()}');
+      throw Exception('Failed to remove film from favourites: ${e.toString()}');
     }
   }
 }
