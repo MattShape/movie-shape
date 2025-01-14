@@ -15,28 +15,34 @@ class FilmRepoImplemented implements FilmRepo {
 
   @override
   Future<Film> getFilmById({required String id}) async {
-    final response = await http
-        .get(Uri.parse('https://www.omdbapi.com/?apikey=810d5ee8&i=$id'));
-
-    if (response.statusCode == 200) {
-      return Film.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
-    } else {
-      throw Exception('Failed to load film');
+    try {
+      final response = await http
+          .get(Uri.parse('https://www.omdbapi.com/?apikey=810d5ee8&i=$id'));
+      if (response.statusCode == 200) {
+        return Film.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      } else {
+        throw Exception('Failed to load film');
+      }
+    } catch (e) {
+      throw Exception("failed to load film: ${e.toString()}");
     }
   }
 
-  @override
-  Future<List<FilmSummary>?> searchFilmsByTitle(
+  Future<List<FilmSummary>> searchFilmsByTitle(
       {required String searchQuery}) async {
-    final response = await http
-        .get(Uri.parse("$_baseUrl?apikey=$_apiKey&type=movie&s=$searchQuery"));
+    try {
+      final response = await http.get(
+          Uri.parse("$_baseUrl?apikey=$_apiKey&type=movie&s=$searchQuery"));
 
-    if (response.statusCode == 200) {
-      FilmsSearch searchResponse =
-          FilmsSearch.fromJson(jsonDecode(response.body));
-      return searchResponse.films;
-    } else {
-      throw Exception("Fail");
+      if (response.statusCode == 200) {
+        FilmsSearch searchResponse =
+            FilmsSearch.fromJson(jsonDecode(response.body));
+        return searchResponse.films;
+      } else {
+        throw Exception("Fail");
+      }
+    } catch (e) {
+      throw Exception("failed to load film list: ${e.toString()}")
     }
   }
 
