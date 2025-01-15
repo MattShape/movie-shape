@@ -32,7 +32,11 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
             .where((film) =>
                 film.title.toLowerCase().contains(searchQuery.toLowerCase()))
             .toList();
-        emit(WatchlistLoaded(filteredFilms));
+        if (searchQuery.isNotEmpty) {
+          emit(WatchlistLoaded(filteredFilms));
+        } else {
+          emit(WatchlistLoaded(watchlist));
+        }
       } catch (e) {
         emit(WatchlistError(e.toString()));
       }
