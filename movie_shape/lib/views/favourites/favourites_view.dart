@@ -6,6 +6,7 @@ import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
 import 'package:movie_shape/reusable/list/list_card.dart';
+import 'package:movie_shape/views/widgets/searchbar.dart';
 
 class FavouritesView extends StatelessWidget {
   const FavouritesView({super.key});
@@ -22,43 +23,54 @@ class FavouritesView extends StatelessWidget {
       );
     }
 
-    return BlocBuilder<FavouritesListBloc, FavouritesListState>(
-      builder: (context, state) {
-        if (state is FavouritesListLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+    return Column(
+      children: [
+        CustomSearchBar(onSearchResults: (searchQuery) {
+          context
+              .read<FavouritesListBloc>()
+              .add(SearchFavouritesList(searchQuery));
+        }),
+        Expanded(
+          child: BlocBuilder<FavouritesListBloc, FavouritesListState>(
+            builder: (context, state) {
+              if (state is FavouritesListLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-        if (state is FavouritesListLoaded) {
-          if (state.favouritesList.isEmpty) {
-            return const Center(
-              child: Text('Your favourites list is empty'),
-            );
-          }
+              if (state is FavouritesListLoaded) {
+                if (state.favouritesList.isEmpty) {
+                  return const Center(
+                    child: Text('Your favourites list is empty'),
+                  );
+                }
 
-          return ListView.builder(
-            itemCount: state.favouritesList.length,
-            itemBuilder: (context, index) {
-              final film = state.favouritesList[index];
-              return ListCard(
-                film: film,
-                onTap: (val) {
-                  _goToDetailPage(val);
-                },
-              );
+                return ListView.builder(
+                  itemCount: state.favouritesList.length,
+                  itemBuilder: (context, index) {
+                    final film = state.favouritesList[index];
+                    return ListCard(
+                      film: film,
+                      onTap: (val) {
+                        _goToDetailPage(val);
+                      },
+                    );
+                  },
+                );
+              }
+
+              if (state is FavouritesListError) {
+                return Center(
+                  child: Text(state.errorMessage),
+                );
+              }
+
+              return Container();
             },
-          );
-        }
-
-        if (state is FavouritesListError) {
-          return Center(
-            child: Text(state.errorMessage),
-          );
-        }
-
-        return Container();
-      },
+          ),
+        ),
+      ],
     );
   }
 }
