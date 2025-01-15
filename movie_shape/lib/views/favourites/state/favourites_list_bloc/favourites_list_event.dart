@@ -6,3 +6,8 @@ sealed class FavouritesListEvent {}
 class LoadFavouritesList extends FavouritesListEvent {
   LoadFavouritesList();
 }
+
+class SearchFavouritesList extends FavouritesListEvent {
+  final String searchQuery;
+  SearchFavouritesList(this.searchQuery);
+}
