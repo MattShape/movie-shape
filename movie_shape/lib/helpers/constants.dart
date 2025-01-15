@@ -19,7 +19,7 @@ class AppConstants {
   static const double filmTitleSize = 40;
   static const double filmSubtitleSize = 12;
   static const double bodySize = 20;
-  static const double IconSize = 37;
+  static const double IconSize = 32;
   static const double shapeCornerRadiusSize = 20;
 
   static const colorScheme = ColorScheme(

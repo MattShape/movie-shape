@@ -12,7 +12,7 @@ class Film {
   final List<String> writer;
   final List<String> actors;
   final String plot;
-  final String language;
+  final List<String> language;
   final String country;
   final List<String> awards;
   String poster;
@@ -55,7 +55,8 @@ class Film {
   });
 
   factory Film.fromJson(Map<String, dynamic> json) {
-    const String defaultPosterUrl = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
+    const String defaultPosterUrl =
+        'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
     var film = Film(
       title: json['Title'] as String? ?? 'N/A',
@@ -66,25 +67,40 @@ class Film {
       genre: json['Genre'] as String? ?? 'N/A',
       director: json['Director'] as String? ?? 'N/A',
       // // convert csv string into list
-      writer: (json['Writer'] as String?)?.split(',').map((writer) => writer.trim()).toList() ?? ['N/A'],
+      writer: (json['Writer'] as String?)
+              ?.split(',')
+              .map((writer) => writer.trim())
+              .toList() ??
+          ['N/A'],
       // convert csv string into list
-      actors: (json['Actors'] as String?)?.split(',').map((actor) => actor.trim()).toList() ?? ['N/A'],
+      actors: (json['Actors'] as String?)
+              ?.split(',')
+              .map((actor) => actor.trim())
+              .toList() ??
+          ['N/A'],
       plot: json['Plot'] as String? ?? 'N/A',
-      language: json['Language'] as String? ?? 'N/A',
+      // convert csv string into list
+      language: (json['Language'] as String?)
+              ?.split(',')
+              .map((actor) => actor.trim())
+              .toList() ??
+          ['N/A'],
       country: json['Country'] as String? ?? 'N/A',
       //awards: json['Awards'] as String? ?? 'N/A',
       awards: (json['Awards'] as String?) // Extract awards string
-        ?.split(RegExp(r'[.&]')) // Split by "." and "&"
-        .map((part) => part.trim()) // Trim whitespace
-        .toList() ?? [], // Default to empty list if null
+              ?.split(RegExp(r'[.&]')) // Split by "." and "&"
+              .map((part) => part.trim()) // Trim whitespace
+              .toList() ??
+          [], // Default to empty list if null
       // if response is 'N/A' set to default poster, if null set to '', else keep url from response
       poster: Uri.tryParse(json['Poster'] ?? '')?.hasAbsolutePath == true
           ? json['Poster']
           : defaultPosterUrl,
       // convert JSON list into Rating class
       ratings: (json['Ratings'] as List<dynamic>?)
-          ?.map((item) => Rating.fromJson(item))
-          .toList() ?? [], 
+              ?.map((item) => Rating.fromJson(item))
+              .toList() ??
+          [],
       metascore: json['Metascore'] as String? ?? 'N/A',
       imdbRating: json['imdbRating'] as String? ?? 'N/A',
       imdbVotes: json['imdbVotes'] as String? ?? 'N/A',
@@ -140,13 +156,14 @@ class Film {
       writer: List<String>.from(json['Writer'] ?? []),
       actors: List<String>.from(json['Actors'] ?? []),
       plot: json['Plot'] ?? 'N/A',
-      language: json['Language'] ?? 'N/A',
+      language: List<String>.from(json['Language'] ?? []),
       country: json['Country'] ?? 'N/A',
       awards: List<String>.from(json['Awards'] ?? []),
       poster: json['Poster'] ?? '',
       ratings: (json['Ratings'] as List<dynamic>?)
-          ?.map((ratingJson) => Rating.fromJson(ratingJson))
-          .toList() ?? [],
+              ?.map((ratingJson) => Rating.fromJson(ratingJson))
+              .toList() ??
+          [],
       metascore: json['Metascore'] ?? 'N/A',
       imdbRating: json['imdbRating'] ?? 'N/A',
       imdbVotes: json['imdbVotes'] ?? 'N/A',
