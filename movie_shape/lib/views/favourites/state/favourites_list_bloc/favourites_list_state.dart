@@ -14,7 +14,7 @@ class FavouritesListLoaded extends FavouritesListState {
 }
 
 class FavouritesListError extends FavouritesListState {
-  final String error;
+  final String errorMessage;
 
-  FavouritesListError(this.error);
+  FavouritesListError(this.errorMessage);
 }
