@@ -18,5 +18,28 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
         emit(WatchlistError(e.toString()));
       }
     });
+    on<SearchWatchlist>((event, emit) async {
+      try {
+        String searchQuery = event.searchQuery;
+
+        emit(WatchlistLoading());
+        await Future.delayed(Duration(seconds: 2));
+        List<FilmSummary> watchlist =
+            await FilmRepoImplemented().getWatchlistFilms() ?? [];
+
+        // filter list and emit new filtered version of list
+        List<FilmSummary> filteredFilms = watchlist
+            .where((film) =>
+                film.title.toLowerCase().contains(searchQuery.toLowerCase()))
+            .toList();
+        if (searchQuery.isNotEmpty) {
+          emit(WatchlistLoaded(filteredFilms));
+        } else {
+          emit(WatchlistLoaded(watchlist));
+        }
+      } catch (e) {
+        emit(WatchlistError(e.toString()));
+      }
+    });
   }
 }
