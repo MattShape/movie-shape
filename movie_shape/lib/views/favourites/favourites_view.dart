@@ -24,11 +24,16 @@ class FavouritesView extends StatelessWidget {
 
     return Column(
       children: [
-        CustomSearchBar(onSearchResults: (searchQuery) {
-          context
-              .read<FavouritesListBloc>()
-              .add(SearchFavouritesList(searchQuery));
-        }),
+        CustomSearchBar(
+          onSearchResults: (searchQuery) {
+            context
+                .read<FavouritesListBloc>()
+                .add(SearchFavouritesList(searchQuery));
+          },
+          onClear: () {
+            context.read<FavouritesListBloc>().add(ClearFavouritesSearch());
+          },
+        ),
         Expanded(
           child: BlocBuilder<FavouritesListBloc, FavouritesListState>(
             builder: (context, state) {
