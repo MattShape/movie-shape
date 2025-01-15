@@ -3,7 +3,7 @@ import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
-import 'package:movie_shape/reusable/watchlist_button/list_card.dart';
+import 'package:movie_shape/reusable/list/list_card.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
 
 class FilmList extends StatefulWidget {

@@ -11,7 +11,6 @@ class WatchlistButtonBloc
   final String filmId;
   WatchlistButtonBloc({required this.filmId})
       : super(WatchlistButtonInitial()) {
-    //
     on<WatchlistButtonDisplayed>((event, emit) async {
       emit(WatchlistButtonLoading());
       try {
@@ -32,11 +31,11 @@ class WatchlistButtonBloc
       emit(WatchlistButtonLoading());
       try {
         bool isInWatchlist = false;
-        List<FilmSummary>? favourites =
+        List<FilmSummary>? watchlist =
             await FilmRepoImplemented().getWatchlistFilms();
-        if (favourites != null) {
+        if (watchlist != null) {
           isInWatchlist =
-              favourites.any((film) => film.imdbID == event.film.imdbID);
+              watchlist.any((film) => film.imdbID == event.film.imdbID);
         }
         if (isInWatchlist) {
           await FilmRepoImplemented().removeFilmFromWatchlist(film: event.film);

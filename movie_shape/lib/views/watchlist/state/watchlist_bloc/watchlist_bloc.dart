@@ -7,7 +7,6 @@ part 'watchlist_state.dart';
 
 class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
   WatchlistBloc() : super(WatchlistInitial()) {
-    //
     on<LoadWatchlist>((event, emit) async {
       try {
         emit(WatchlistLoading());
