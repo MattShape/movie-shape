@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film_summary.dart';
-import 'package:movie_shape/reusable/favourite_button/bloc/favourite_button_bloc.dart';
+import 'package:movie_shape/reusable/favourite_button/state/favourite_button_bloc.dart';
 import 'package:movie_shape/helpers/constants.dart';
 
 class FavouriteButton extends StatelessWidget {
