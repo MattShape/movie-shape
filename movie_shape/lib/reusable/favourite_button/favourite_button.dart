@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/helpers/constants.dart';
@@ -17,7 +16,6 @@ class FavouriteButton extends StatelessWidget {
       create: (context) => FavouriteButtonBloc(
         filmId: film.imdbID,
       )..add(FavouriteButtonDisplayed()),
-
       child: BlocBuilder<FavouriteButtonBloc, FavouriteButtonState>(
         builder: (context, state) {
           if (state is FavouriteButtonLoading) {
@@ -26,15 +24,15 @@ class FavouriteButton extends StatelessWidget {
 
           if (state is FavouriteButtonLoaded) {
             return IconButton(
-              onPressed: () {
-                context
-                    .read<FavouriteButtonBloc>()
-                    .add(FavouriteButtonPressed(film));
-              }, 
-              color: AppConstants.accentColour,
-              icon: Icon(state.isInFavouritesList 
-                  ? Icons.favorite 
-                  : Icons.favorite_outline));
+                onPressed: () {
+                  context
+                      .read<FavouriteButtonBloc>()
+                      .add(FavouriteButtonPressed(film));
+                },
+                color: AppConstants.accentColour,
+                icon: Icon(state.isInFavouritesList
+                    ? Icons.favorite
+                    : Icons.favorite_outline));
           }
 
           if (state is FavouriteButtonError) {
