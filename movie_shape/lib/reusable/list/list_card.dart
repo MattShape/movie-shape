@@ -15,26 +15,66 @@ class ListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: AppConstants.secondaryFgColour,
-      shadowColor: AppConstants.accentColour,
-      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      elevation: 4,
-      child: ListTile(
-        title: Text(
-          film.title,
-          style: TextStyle(color: AppConstants.textColour),
+    return SizedBox(
+      height: 160,
+      child: Card(
+        color: AppConstants.primaryColour,
+        shadowColor: AppConstants.accentColour,
+        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0)
+            .copyWith(right: 60.0),
+        elevation: 4,
+        // child: ListTile(
+        //   title: Text(
+        //     film.title,
+        //     style: TextStyle(color: AppConstants.textColour),
+        //   ),
+        //   subtitle: Text(
+        //     film.year,
+        //     style: TextStyle(color: AppConstants.textColour),
+        //   ),
+        //   leading: Image.network(
+        //     film.poster,
+        //   ),
+        //   onTap: () {
+        //     onTap(film.imdbID);
+        //   },
+        // ),
+
+        child: Row(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 12.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6.0),
+                    child: Image.network(
+                      film.poster,
+                      height: 120,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              ],
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    film.title,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppConstants.textColour,
+                        fontSize: 40),
+                  ),
+                  Text("Release Year: ${film.year}"),
+                ],
+              ),
+            )
+          ],
         ),
-        subtitle: Text(
-          film.year,
-          style: TextStyle(color: AppConstants.textColour),
-        ),
-        leading: Image.network(
-          film.poster,
-        ),
-        onTap: () {
-          onTap(film.imdbID);
-        },
       ),
     );
   }
