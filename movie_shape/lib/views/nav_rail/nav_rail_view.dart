@@ -32,7 +32,9 @@ class NavRailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationRail(
-      selectedIconTheme: IconThemeData(),
+      selectedIconTheme: IconThemeData(color: AppConstants.secondaryColour),
+      unselectedIconTheme: IconThemeData(color: AppConstants.secondaryColour),
+      useIndicator: false,
       // logo
       leading: Padding(
         padding: const EdgeInsets.all(28),
@@ -47,17 +49,57 @@ class NavRailWidget extends StatelessWidget {
 
       destinations: const [
         NavigationRailDestination(
-          icon: Icon(
-            Icons.theaters_rounded,
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 36),
+            child: Icon(
+              Icons.theaters_outlined,
+              size: 36,
+            ),
           ),
-          label: Text("Movies"),
+          selectedIcon: Padding(
+            padding: EdgeInsets.only(bottom: 36),
+            child: Icon(
+              Icons.theaters_rounded,
+              size: 36,
+            ),
+          ),
+          label: Padding(
+            padding: EdgeInsets.only(bottom: 36),
+            child:
+                Text("Home", style: TextStyle(fontSize: AppConstants.bodySize)),
+          ),
         ),
         NavigationRailDestination(
-            icon: Icon(Icons.bookmark_outlined), label: Text("Favourites")),
+          icon: Padding(
+            padding: EdgeInsets.only(bottom: 36),
+            child: Icon(
+              Icons.favorite_outline_rounded,
+              size: 36,
+            ),
+          ),
+          selectedIcon: Padding(
+              padding: EdgeInsets.only(bottom: 36),
+              child: Icon(
+                Icons.favorite_rounded,
+                size: 36,
+              )),
+          label: Padding(
+            padding: EdgeInsets.only(bottom: 36),
+            child: Text("Favourites",
+                style: TextStyle(fontSize: AppConstants.bodySize)),
+          ),
+        ),
         NavigationRailDestination(
-          icon: Icon(Icons.remove_red_eye),
-          label: Text("Watch List"),
-        )
+            icon: Icon(
+              Icons.bookmark_border_rounded,
+              size: 36,
+            ),
+            selectedIcon: Icon(
+              Icons.bookmark_rounded,
+              size: 36,
+            ),
+            label: Text("Watch List",
+                style: TextStyle(fontSize: AppConstants.bodySize)))
       ],
       selectedIndex: selectedIndex,
       onDestinationSelected: (index) {
