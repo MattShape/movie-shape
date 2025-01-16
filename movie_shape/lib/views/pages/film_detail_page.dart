@@ -112,7 +112,7 @@ class FilmDetailPage extends StatelessWidget {
                 children: [
                   Text(
                     rating.source,
-                    style: AppConstants.fontFamily(
+                    style: TextStyle(
                       color: AppConstants.textColour,
                       fontSize: AppConstants.bodySize,
                     ),
@@ -120,7 +120,7 @@ class FilmDetailPage extends StatelessWidget {
                   SizedBox(width: 5),
                   Text(
                     rating.value,
-                    style: AppConstants.fontFamily(
+                    style: TextStyle(
                       color: AppConstants.textColour,
                       fontSize: AppConstants.bodySize,
                     ),
@@ -149,13 +149,13 @@ class FilmDetailPage extends StatelessWidget {
     return Wrap(
       children: [
         Text('Languages: ',
-            style: AppConstants.fontFamily(
+            style: TextStyle(
               color: Theme.of(context).colorScheme.onPrimary,
               fontSize: 14,
             )),
         Text(
           film.language.join(', '),
-          style: AppConstants.fontFamily(
+          style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: 14,
           ),
@@ -176,7 +176,7 @@ class FilmDetailPage extends StatelessWidget {
           children: [
             Text(
               'Actors',
-              style: AppConstants.fontFamily(
+              style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: AppConstants.bodySize,
               ),
@@ -186,7 +186,7 @@ class FilmDetailPage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 12),
                   child: Text(
                     item.trim(),
-                    style: AppConstants.fontFamily(
+                    style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: AppConstants.bodySize,
                     ),
@@ -204,7 +204,7 @@ class FilmDetailPage extends StatelessWidget {
           children: [
             Text(
               'Writers',
-              style: AppConstants.fontFamily(
+              style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: AppConstants.bodySize,
               ),
@@ -213,7 +213,7 @@ class FilmDetailPage extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 12),
                   child: Text(
                     item.trim(),
-                    style: AppConstants.fontFamily(
+                    style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
                       fontSize: AppConstants.bodySize,
                     ),
@@ -230,7 +230,7 @@ class FilmDetailPage extends StatelessWidget {
       children: [
         Text(
           'Run Time: ${film.runtime}',
-          style: AppConstants.fontFamily(
+          style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: AppConstants.bodySize,
           ),
@@ -244,7 +244,7 @@ class FilmDetailPage extends StatelessWidget {
       children: [
         Text(
           'Director: ${film.director}',
-          style: AppConstants.fontFamily(
+          style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: AppConstants.bodySize,
           ),
@@ -259,7 +259,7 @@ class FilmDetailPage extends StatelessWidget {
       children: [
         Text(
           'Release date: ${film.year}',
-          style: AppConstants.fontFamily(
+          style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: AppConstants.bodySize,
           ),
@@ -303,7 +303,7 @@ class PlotBox extends StatelessWidget {
       children: [
         Text(
           'Description: ${film.plot}',
-          style: AppConstants.fontFamily(
+          style: TextStyle(
             color: Theme.of(context).colorScheme.onPrimary,
             fontSize: AppConstants.bodySize,
           ),
@@ -332,7 +332,7 @@ class FilmHeading extends StatelessWidget {
         color: Theme.of(context).colorScheme.primary,
         child: Center(
           child: Text(film.title,
-              style: AppConstants.fontFamily(
+              style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimary,
                 fontSize: AppConstants.filmTitleSize,
               )),
