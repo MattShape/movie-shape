@@ -13,19 +13,17 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var materialApp = MaterialApp(
-        //theme: ThemeData(scaffoldBackgroundColor: AppConstants.primaryColour),
-        theme: ThemeData.from(
-          colorScheme: AppConstants.colorScheme,
-          textTheme: GoogleFonts.interTextTheme(),
-        ).copyWith(
-          // Customizing additional properties if needed
-          scaffoldBackgroundColor: AppConstants.backgroundColour,
-          iconTheme: IconThemeData(
-            color: AppConstants.secondaryColour,
-            size: AppConstants.IconSize,
-          ),
+      theme: ThemeData(
+        colorScheme: AppConstants.colorScheme,
+        scaffoldBackgroundColor: AppConstants.backgroundColour,
+        iconTheme: IconThemeData(
+          color: AppConstants.secondaryColour,
+          size: AppConstants.IconSize,
         ),
-        home: NavRailPage());
+        fontFamily: 'Gilroy',
+      ),
+      home: NavRailPage(),
+    );
     return materialApp;
   }
 }

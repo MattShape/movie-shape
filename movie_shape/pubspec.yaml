@@ -24,4 +24,10 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/shape_logo.png
+    - assets/
+  fonts:
+    - family: Gilroy
+      fonts:
+        - asset: assets/fonts/Gilroy-Light.ttf
+        - asset: assets/fonts/Gilroy-Regular.ttf
+        - asset: assets/fonts/Gilroy-Bold.ttf

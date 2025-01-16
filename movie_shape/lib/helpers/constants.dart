@@ -11,7 +11,9 @@ class AppConstants {
   static const accentColour = Color(0xFFB5A2D8);
   static const accentFgColour = Color(0xFFfbfbfe);
 
-  static const fontFamily = GoogleFonts.inter;
+  static const fontFamilyLight = GoogleFonts.inter;
+  static const fontFamilyRegular = GoogleFonts.inter;
+  static const fontFamilyBold = GoogleFonts.inter;
 
   static const double companyTitleSize = 52;
   static const double filmTitleSize = 40;
@@ -30,7 +32,11 @@ class AppConstants {
     onTertiary: accentFgColour,
     surface: backgroundColour,
     onSurface: textColour,
-    error: Brightness.dark == Brightness.light ? Color(0xffB3261E) : Color(0xffF2B8B5),
-    onError: Brightness.dark == Brightness.light ? Color(0xffFFFFFF) : Color(0xff601410),
-);
+    error: Brightness.dark == Brightness.light
+        ? Color(0xffB3261E)
+        : Color(0xffF2B8B5),
+    onError: Brightness.dark == Brightness.light
+        ? Color(0xffFFFFFF)
+        : Color(0xff601410),
+  );
 }
