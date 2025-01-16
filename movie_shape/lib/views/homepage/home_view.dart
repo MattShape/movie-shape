@@ -24,9 +24,12 @@ class HomeView extends StatelessWidget {
 
     return Column(
       children: [
-        CustomSearchBar(onSearchResults: (searchQuery) {
-          context.read<HomeBloc>().add(OnSearchSubmit(searchQuery));
-        }),
+        CustomSearchBar(
+          onSearchResults: (searchQuery) {
+            context.read<HomeBloc>().add(OnSearchSubmit(searchQuery));
+          },
+          hintText: "Search for a film...",
+        ),
         Expanded(
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {

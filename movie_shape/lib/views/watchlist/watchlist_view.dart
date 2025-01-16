@@ -30,6 +30,7 @@ class WatchlistView extends StatelessWidget {
           },
           onClear: () =>
               {context.read<WatchlistBloc>().add(ClearWatchSearch())},
+          hintText: "Search your Watch List...",
         ),
         Expanded(
           child: BlocBuilder<WatchlistBloc, WatchlistState>(

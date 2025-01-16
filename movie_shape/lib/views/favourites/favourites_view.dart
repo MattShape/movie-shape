@@ -33,6 +33,7 @@ class FavouritesView extends StatelessWidget {
           onClear: () {
             context.read<FavouritesListBloc>().add(ClearFavouritesSearch());
           },
+          hintText: "Search your Favourites List...",
         ),
         Expanded(
           child: BlocBuilder<FavouritesListBloc, FavouritesListState>(
