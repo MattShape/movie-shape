@@ -12,6 +12,7 @@ class FavouritesListBloc
   FavouritesListBloc() : super(FavouritesListInitial()) {
     on<LoadFavouritesList>(_onLoadFavouritesList);
     on<SearchFavouritesList>(_onSearchFavouritesList);
+    on<ClearFavouritesSearch>(_onClearFavouritesSearch);
   }
 
   void _onLoadFavouritesList(event, emit) async {
@@ -43,6 +44,17 @@ class FavouritesListBloc
       } else {
         emit(FavouritesListLoaded(favouritesList));
       }
+    } catch (e) {
+      emit(FavouritesListError(e.toString()));
+    }
+  }
+
+  void _onClearFavouritesSearch(event, emit) async {
+    try {
+      emit(FavouritesListLoading());
+      List<FilmSummary> favouritesList =
+          await FilmRepoImplemented().getFavouritedFilms() ?? [];
+      emit(FavouritesListLoaded(favouritesList));
     } catch (e) {
       emit(FavouritesListError(e.toString()));
     }

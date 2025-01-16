@@ -24,9 +24,14 @@ class WatchlistView extends StatelessWidget {
 
     return Column(
       children: [
-        CustomSearchBar(onSearchResults: (searchQuery) {
-          context.read<WatchlistBloc>().add(SearchWatchlist(searchQuery));
-        }),
+        CustomSearchBar(
+          onSearchResults: (searchQuery) {
+            context.read<WatchlistBloc>().add(SearchWatchlist(searchQuery));
+          },
+          onClear: () =>
+              {context.read<WatchlistBloc>().add(ClearWatchSearch())},
+          hintText: "Search your Watch List...",
+        ),
         Expanded(
           child: BlocBuilder<WatchlistBloc, WatchlistState>(
             builder: (context, state) {

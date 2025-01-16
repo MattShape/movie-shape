@@ -12,3 +12,7 @@ class SearchWatchlist extends WatchlistEvent {
   final String searchQuery;
   const SearchWatchlist(this.searchQuery);
 }
+
+class ClearWatchSearch extends WatchlistEvent {
+  const ClearWatchSearch();
+}

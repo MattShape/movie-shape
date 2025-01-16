@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/views/favourites/state/favourites_list_bloc/favourites_list_bloc.dart';
-import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
@@ -25,11 +24,17 @@ class FavouritesView extends StatelessWidget {
 
     return Column(
       children: [
-        CustomSearchBar(onSearchResults: (searchQuery) {
-          context
-              .read<FavouritesListBloc>()
-              .add(SearchFavouritesList(searchQuery));
-        }),
+        CustomSearchBar(
+          onSearchResults: (searchQuery) {
+            context
+                .read<FavouritesListBloc>()
+                .add(SearchFavouritesList(searchQuery));
+          },
+          onClear: () {
+            context.read<FavouritesListBloc>().add(ClearFavouritesSearch());
+          },
+          hintText: "Search your Favourites List...",
+        ),
         Expanded(
           child: BlocBuilder<FavouritesListBloc, FavouritesListState>(
             builder: (context, state) {

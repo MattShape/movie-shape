@@ -11,3 +11,7 @@ class SearchFavouritesList extends FavouritesListEvent {
   final String searchQuery;
   SearchFavouritesList(this.searchQuery);
 }
+
+class ClearFavouritesSearch extends FavouritesListEvent {
+  ClearFavouritesSearch();
+}

@@ -41,5 +41,15 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
         emit(WatchlistError(e.toString()));
       }
     });
+    on<ClearWatchSearch>((event, emit) async {
+      try {
+        emit(WatchlistLoading());
+        List<FilmSummary> watchlist =
+            await FilmRepoImplemented().getWatchlistFilms() ?? [];
+        emit(WatchlistLoaded(watchlist));
+      } catch (e) {
+        emit(WatchlistError(e.toString()));
+      }
+    });
   }
 }
