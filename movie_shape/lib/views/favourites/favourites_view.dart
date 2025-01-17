@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/views/favourites/state/favourites_list_bloc/favourites_list_bloc.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/models/film.dart';
-import 'package:movie_shape/views/pages/film_detail_page.dart';
+import 'package:movie_shape/views/film_detail_page/film_detail_view.dart';
 import 'package:movie_shape/reusable/list/list_card.dart';
+import 'package:movie_shape/views/nav_rail/state/nav_rail_bloc.dart';
 import 'package:movie_shape/views/widgets/searchbar.dart';
 import 'package:movie_shape/reusable/page_title_card.dart';
 
@@ -13,15 +14,15 @@ class FavouritesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future<void> _goToDetailPage(String id) async {
-      Film film = await FilmRepoImplemented().getFilmById(id: id);
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => FilmDetailPage(film: film),
-        ),
-      );
-    }
+    // Future<void> _goToDetailPage(String id) async {
+    //   Film film = await FilmRepoImplemented().getFilmById(id: id);
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => FilmDetailView(film: film),
+    //     ),
+    //   );
+    // }
 
     return Column(
       children: [
@@ -68,7 +69,7 @@ class FavouritesView extends StatelessWidget {
                     return ListCard(
                       film: film,
                       onTap: (val) {
-                        _goToDetailPage(val);
+                        context.read<NavRailBloc>().add(FilmSelected(val));
                       },
                     );
                   },

@@ -6,7 +6,7 @@ import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/reusable/list/list_card.dart';
 import 'package:movie_shape/views/homepage/state/home_bloc/home_bloc.dart';
 import 'package:movie_shape/views/nav_rail/state/nav_rail_bloc.dart';
-import 'package:movie_shape/views/pages/film_detail_page.dart';
+import 'package:movie_shape/views/film_detail_page/film_detail_view.dart';
 import 'package:movie_shape/views/widgets/searchbar.dart';
 import 'package:movie_shape/reusable/page_title_card.dart';
 

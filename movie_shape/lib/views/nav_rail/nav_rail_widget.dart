@@ -80,16 +80,22 @@ class NavRailWidget extends StatelessWidget {
             label: Text("Watch List",
                 style: TextStyle(fontSize: AppConstants.bodySize))),
         NavigationRailDestination(
+            disabled: true,
             icon: Icon(
               Icons.movie_creation_outlined,
               size: 36,
+              color: AppConstants.primaryColour,
             ),
             selectedIcon: Icon(
               Icons.movie,
               size: 36,
+              color: AppConstants.primaryColour,
             ),
-            label:
-                Text("Film", style: TextStyle(fontSize: AppConstants.bodySize)))
+            label: Text("Film",
+                style: TextStyle(
+                  fontSize: AppConstants.bodySize,
+                  color: AppConstants.primaryColour,
+                )))
       ],
       selectedIndex: selectedIndex,
       onDestinationSelected: (index) {
