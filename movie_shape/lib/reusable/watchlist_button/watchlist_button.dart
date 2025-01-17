@@ -26,7 +26,7 @@ class WatchlistButton extends StatelessWidget {
                       .read<WatchlistButtonBloc>()
                       .add(WatchlistButtonPressed(film));
                 },
-                color: AppConstants.accentColour,
+                color: AppConstants.secondaryColour,
                 icon: Icon(state.isInWatchlist
                     ? Icons.bookmark
                     : Icons.bookmark_outline));

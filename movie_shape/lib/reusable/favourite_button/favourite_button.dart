@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/reusable/favourite_button/state/favourite_button_bloc.dart';
-import 'package:movie_shape/helpers/constants.dart';
 
 class FavouriteButton extends StatelessWidget {
   final FilmSummary film;
@@ -29,7 +28,7 @@ class FavouriteButton extends StatelessWidget {
                       .read<FavouriteButtonBloc>()
                       .add(FavouriteButtonPressed(film));
                 },
-                color: AppConstants.accentColour,
+                color: AppConstants.secondaryColour,
                 icon: Icon(state.isInFavouritesList
                     ? Icons.favorite
                     : Icons.favorite_outline));

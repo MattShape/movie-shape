@@ -4,6 +4,8 @@ import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
+import 'package:movie_shape/reusable/favourite_button/favourite_button.dart';
+import 'package:movie_shape/reusable/watchlist_button/watchlist_button.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
 import 'package:movie_shape/views/watchlist/state/watchlist_bloc/watchlist_bloc.dart';
 
@@ -15,26 +17,77 @@ class ListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: AppConstants.secondaryFgColour,
-      shadowColor: AppConstants.accentColour,
-      margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      elevation: 4,
-      child: ListTile(
-        title: Text(
-          film.title,
-          style: TextStyle(color: AppConstants.textColour),
+    return SizedBox(
+      height: 160,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(65.0),
+        child: Card(
+          color: AppConstants.primaryColour,
+          margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
+          child: InkWell(
+            onTap: () {
+              onTap(film.imdbID);
+            },
+            child: Row(
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(6.0),
+                        child: Image.network(
+                          film.poster,
+                          height: 120,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          film.title,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppConstants.textColour,
+                              fontSize: 28),
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        Text(
+                          "Release date: ${film.year}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              color: AppConstants.textColour,
+                              fontSize: 10),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: 20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FavouriteButton(film: film),
+                      WatchlistButton(film: film)
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
-        subtitle: Text(
-          film.year,
-          style: TextStyle(color: AppConstants.textColour),
-        ),
-        leading: Image.network(
-          film.poster,
-        ),
-        onTap: () {
-          onTap(film.imdbID);
-        },
       ),
     );
   }
