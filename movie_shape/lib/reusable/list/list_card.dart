@@ -48,7 +48,7 @@ class ListCard extends StatelessWidget {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 22.0),
+                    padding: const EdgeInsets.only(left: 15.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +58,7 @@ class ListCard extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: AppConstants.textColour,
-                              fontSize: 24),
+                              fontSize: 28),
                         ),
                         SizedBox(
                           height: 8.0,
