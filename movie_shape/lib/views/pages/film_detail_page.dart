@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/models/rating.dart';
 import 'package:movie_shape/reusable/favourite_button/favourite_button.dart';
 import 'package:movie_shape/reusable/watchlist_button/watchlist_button.dart';
+import 'package:movie_shape/views/nav_rail/nav_rail_view.dart';
+import 'package:movie_shape/views/nav_rail/nav_rail_widget.dart';
+import 'package:movie_shape/views/nav_rail/state/nav_rail_bloc.dart';
 
 class FilmDetailPage extends StatelessWidget {
   const FilmDetailPage({super.key, required this.film});
@@ -14,91 +18,92 @@ class FilmDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // page
-        body: Center(
-      child: Column(
-        children: [
-          SizedBox(
-            height: 35,
-          ),
+      body: Center(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 35,
+            ),
 
-          // film title card
-          FilmHeading(film: film),
+            // film title card
+            FilmHeading(film: film),
 
-          SizedBox(
-            height: 35,
-          ),
+            SizedBox(
+              height: 35,
+            ),
 
-          // detail container
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Container(
-              width: 924,
-              height: 445,
-              color: Theme.of(context).colorScheme.primary,
-              child: Padding(
-                padding: const EdgeInsets.all(12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // poster
-                    Expanded(flex: 1, child: Poster()),
+            // detail container
+            ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                width: 924,
+                height: 653,
+                color: Theme.of(context).colorScheme.primary,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // poster
+                      Expanded(flex: 1, child: Poster()),
 
-                    // detail information
-                    Expanded(
-                      flex: 2,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 32),
-                          child: Container(
-                            width: 420,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Film detail information column
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    YearFavouriteWatchlistRow(context),
-                                    SizedBox(height: 11),
-                                    DirectorRow(context),
-                                    SizedBox(height: 20),
-                                    RuntimeRow(context),
-                                  ],
-                                ),
+                      // detail information
+                      Expanded(
+                        flex: 2,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 32),
+                            child: Container(
+                              width: 420,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Film detail information column
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      YearFavouriteWatchlistRow(context),
+                                      SizedBox(height: 11),
+                                      DirectorRow(context),
+                                      SizedBox(height: 20),
+                                      RuntimeRow(context),
+                                    ],
+                                  ),
 
-                                SizedBox(height: 20),
+                                  SizedBox(height: 20),
 
-                                RatingColumn(),
+                                  RatingColumn(),
 
-                                SizedBox(height: 12),
+                                  SizedBox(height: 12),
 
-                                PlotBox(film: film),
+                                  PlotBox(film: film),
 
-                                SizedBox(height: 32),
+                                  SizedBox(height: 32),
 
-                                ActorsWritersRow(context),
+                                  ActorsWritersRow(context),
 
-                                SizedBox(height: 56),
+                                  SizedBox(height: 56),
 
-                                LanguagesRow(context),
-                              ],
+                                  LanguagesRow(context),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 
   Column RatingColumn() {
@@ -137,7 +142,7 @@ class FilmDetailPage extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(20),
       child: Image.network(
-        film.poster,
+        film.poster ?? "",
         // width: 424,
         // height: 629,
         fit: BoxFit.cover,
@@ -166,7 +171,7 @@ class FilmDetailPage extends StatelessWidget {
 
   Row ActorsWritersRow(BuildContext context) {
     return Row(
-      //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Actors column
@@ -195,7 +200,7 @@ class FilmDetailPage extends StatelessWidget {
           ],
         ),
 
-        Spacer(),
+        SizedBox(width: 36),
 
         // Writers column
         Column(
@@ -271,7 +276,7 @@ class FilmDetailPage extends StatelessWidget {
             year: film.year,
             imdbID: film.imdbId,
             type: film.type,
-            poster: film.poster,
+            poster: film.poster ?? "",
           ),
         ),
         SizedBox(width: 20),
@@ -281,7 +286,7 @@ class FilmDetailPage extends StatelessWidget {
             year: film.year,
             imdbID: film.imdbId,
             type: film.type,
-            poster: film.poster,
+            poster: film.poster ?? "",
           ),
         ),
       ],
