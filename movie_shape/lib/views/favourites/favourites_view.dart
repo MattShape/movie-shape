@@ -6,6 +6,7 @@ import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
 import 'package:movie_shape/reusable/list/list_card.dart';
 import 'package:movie_shape/views/widgets/searchbar.dart';
+import 'package:movie_shape/reusable/page_title_card.dart';
 
 class FavouritesView extends StatelessWidget {
   const FavouritesView({super.key});
@@ -24,16 +25,25 @@ class FavouritesView extends StatelessWidget {
 
     return Column(
       children: [
-        CustomSearchBar(
-          onSearchResults: (searchQuery) {
-            context
-                .read<FavouritesListBloc>()
-                .add(SearchFavouritesList(searchQuery));
-          },
-          onClear: () {
-            context.read<FavouritesListBloc>().add(ClearFavouritesSearch());
-          },
-          hintText: "Search your Favourites List...",
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 14),
+          child: PageTitleCard(title: 'Favourites'),
+        ),
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 20, top: 14, right: 20, bottom: 28),
+          child: CustomSearchBar(
+            onSearchResults: (searchQuery) {
+              context
+                  .read<FavouritesListBloc>()
+                  .add(SearchFavouritesList(searchQuery));
+            },
+            onClear: () {
+              context.read<FavouritesListBloc>().add(ClearFavouritesSearch());
+            },
+            hintText: "Search your Favourites List...",
+          ),
         ),
         Expanded(
           child: BlocBuilder<FavouritesListBloc, FavouritesListState>(

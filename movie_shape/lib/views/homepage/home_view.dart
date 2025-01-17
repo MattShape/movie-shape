@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/reusable/list/list_card.dart';
 import 'package:movie_shape/views/homepage/state/home_bloc/home_bloc.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
 import 'package:movie_shape/views/widgets/searchbar.dart';
+import 'package:movie_shape/reusable/page_title_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -24,12 +26,27 @@ class HomeView extends StatelessWidget {
 
     return Column(
       children: [
-        CustomSearchBar(
-          onSearchResults: (searchQuery) {
-            context.read<HomeBloc>().add(OnSearchSubmit(searchQuery));
-          },
-          hintText: "Search for a film...",
+        // Title Card
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 14),
+          child: PageTitleCard(
+            title: 'Home',
+          ),
         ),
+        // Search Bar
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 20, top: 14, right: 20, bottom: 28),
+          child: CustomSearchBar(
+            onSearchResults: (searchQuery) {
+              context.read<HomeBloc>().add(OnSearchSubmit(searchQuery));
+            },
+            hintText: "Search for a film...",
+          ),
+        ),
+
+        // Film List View
         Expanded(
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_shape/helpers/constants.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final Function(String) onSearchResults;
@@ -26,16 +27,35 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SearchBar(
-      hintText: hintText,
-      controller: _controller,
-      onSubmitted: (value) {
-        _handleSearch(value);
-      },
-      leading: Icon(Icons.search),
-      trailing: onClear != null
-          ? [IconButton(onPressed: _handleClear, icon: Icon(Icons.clear))]
-          : null,
+    return Container(
+      width: MediaQuery.of(context).size.width * 1,
+      height: 48,
+      child: SearchBar(
+        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)))),
+        backgroundColor: MaterialStateProperty.all(AppConstants.accentColour),
+        textStyle: MaterialStateProperty.all(
+            TextStyle(color: AppConstants.primaryColour)),
+        hintText: hintText,
+        controller: _controller,
+        onSubmitted: (value) {
+          _handleSearch(value);
+        },
+        leading: Icon(
+          Icons.search,
+          color: AppConstants.secondaryColour,
+        ),
+        trailing: onClear != null
+            ? [
+                IconButton(
+                    onPressed: _handleClear,
+                    icon: Icon(
+                      Icons.clear,
+                      color: AppConstants.secondaryColour,
+                    ))
+              ]
+            : null,
+      ),
     );
   }
 }
