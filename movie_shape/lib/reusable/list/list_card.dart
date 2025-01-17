@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/helpers/constants.dart';
-import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/models/film_summary.dart';
-import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/reusable/favourite_button/favourite_button.dart';
 import 'package:movie_shape/reusable/watchlist_button/watchlist_button.dart';
-import 'package:movie_shape/views/pages/film_detail_page.dart';
-import 'package:movie_shape/views/watchlist/state/watchlist_bloc/watchlist_bloc.dart';
 
 class ListCard extends StatelessWidget {
   final FilmSummary film;
