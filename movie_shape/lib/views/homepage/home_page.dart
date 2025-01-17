@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/views/homepage/home_view.dart';
 import 'package:movie_shape/views/homepage/state/home_bloc/home_bloc.dart';
-import 'package:movie_shape/views/nav_rail/state/nav_rail_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

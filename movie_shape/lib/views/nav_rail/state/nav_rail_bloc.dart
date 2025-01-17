@@ -1,13 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
-import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/views/homepage/home_page.dart';
 import 'package:movie_shape/views/favourites/favourites_page.dart';
-import 'package:movie_shape/views/film_detail_page/film_detail_view.dart';
 import 'package:movie_shape/views/watchlist/watchlist_page.dart';
-
-import '../../../repository/film_repo_implemented.dart';
 
 part 'nav_rail_event.dart';
 part 'nav_rail_state.dart';

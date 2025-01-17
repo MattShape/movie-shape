@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_shape/helpers/constants.dart';
-import 'package:movie_shape/models/film.dart';
-import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/reusable/list/list_card.dart';
 import 'package:movie_shape/views/homepage/state/home_bloc/home_bloc.dart';
 import 'package:movie_shape/views/nav_rail/state/nav_rail_bloc.dart';
-import 'package:movie_shape/views/film_detail_page/film_detail_view.dart';
 import 'package:movie_shape/views/widgets/searchbar.dart';
 import 'package:movie_shape/reusable/page_title_card.dart';
 
@@ -15,16 +11,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Future<void> _goToDetailPage(String id) async {
-    //   Film film = await FilmRepoImplemented().getFilmById(id: id);
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => FilmDetailPage(film: film),
-    //     ),
-    //   );
-    // }
-
     return Column(
       children: [
         // Title Card
