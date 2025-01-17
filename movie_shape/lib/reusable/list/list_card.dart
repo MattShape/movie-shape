@@ -19,22 +19,8 @@ class ListCard extends StatelessWidget {
       height: 160,
       child: Card(
         color: AppConstants.primaryColour,
-        shadowColor: AppConstants.accentColour,
-        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0)
-            .copyWith(right: 60.0),
-        elevation: 4,
+        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
         // child: ListTile(
-        //   title: Text(
-        //     film.title,
-        //     style: TextStyle(color: AppConstants.textColour),
-        //   ),
-        //   subtitle: Text(
-        //     film.year,
-        //     style: TextStyle(color: AppConstants.textColour),
-        //   ),
-        //   leading: Image.network(
-        //     film.poster,
-        //   ),
         //   onTap: () {
         //     onTap(film.imdbID);
         //   },
@@ -46,7 +32,7 @@ class ListCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(left: 12.0),
+                  padding: EdgeInsets.only(left: 10.0),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(6.0),
                     child: Image.network(
@@ -59,18 +45,31 @@ class ListCard extends StatelessWidget {
               ],
             ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    film.title,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: AppConstants.textColour,
-                        fontSize: 40),
-                  ),
-                  Text("Release Year: ${film.year}"),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(left: 22.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      film.title,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppConstants.textColour,
+                          fontSize: 24),
+                    ),
+                    SizedBox(
+                      height: 8.0,
+                    ),
+                    Text(
+                      "Release date: ${film.year}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.normal,
+                          color: AppConstants.textColour,
+                          fontSize: 10),
+                    ),
+                  ],
+                ),
               ),
             )
           ],
