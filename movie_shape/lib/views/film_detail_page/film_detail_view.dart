@@ -60,6 +60,8 @@ class FilmDetailView extends StatelessWidget {
                                         YearFavouriteWatchlistRow(
                                           context,
                                           film: film,
+                                          longDescription:
+                                              state.longDescription,
                                         ),
                                         SizedBox(height: 11),
                                         DirectorRow(context, film: film),
@@ -252,7 +254,9 @@ class DirectorRow extends StatelessWidget {
 // YearFavouriteWatchlistRow Widget
 class YearFavouriteWatchlistRow extends StatelessWidget {
   final Film film;
-  const YearFavouriteWatchlistRow(BuildContext context, {required this.film});
+  final bool longDescription;
+  const YearFavouriteWatchlistRow(BuildContext context,
+      {required this.film, required this.longDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -285,6 +289,14 @@ class YearFavouriteWatchlistRow extends StatelessWidget {
             type: film.type,
             poster: film.poster ?? "",
           ),
+        ),
+        IconButton(
+          onPressed: () {
+            context
+                .read<FilmDetailPageBloc>()
+                .add(ShowLongDescription(film.imdbId, longDescription));
+          },
+          icon: Icon(Icons.unfold_more),
         ),
       ],
     );

@@ -9,3 +9,10 @@ class LoadFilm extends FilmDetailPageEvent {
 
   const LoadFilm(this.filmId);
 }
+
+class ShowLongDescription extends FilmDetailPageEvent {
+  final String filmId;
+  final bool longDescription;
+
+  const ShowLongDescription(this.filmId, this.longDescription);
+}

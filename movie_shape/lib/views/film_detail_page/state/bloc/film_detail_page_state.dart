@@ -10,8 +10,9 @@ class FilmDetailPageLoading extends FilmDetailPageState {}
 
 class FilmDetailPageLoaded extends FilmDetailPageState {
   final Film film;
+  final bool longDescription;
 
-  const FilmDetailPageLoaded(this.film);
+  const FilmDetailPageLoaded(this.film, this.longDescription);
 }
 
 class FilmDetailPageError extends FilmDetailPageState {
