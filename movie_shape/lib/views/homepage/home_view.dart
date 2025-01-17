@@ -7,6 +7,7 @@ import 'package:movie_shape/reusable/list/list_card.dart';
 import 'package:movie_shape/views/homepage/state/home_bloc/home_bloc.dart';
 import 'package:movie_shape/views/pages/film_detail_page.dart';
 import 'package:movie_shape/views/widgets/searchbar.dart';
+import 'package:movie_shape/reusable/page_title_card.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -87,30 +88,6 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class PageTitleCard extends StatelessWidget {
-  final String title;
-
-  const PageTitleCard({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(20)),
-      child: Container(
-        width: MediaQuery.of(context).size.width * 1,
-        height: 66,
-        color: AppConstants.primaryColour,
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: AppConstants.companyTitleSize),
-          ),
-        ),
-      ),
     );
   }
 }
