@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
 import 'package:movie_shape/reusable/list/list_card.dart';
@@ -24,12 +25,27 @@ class HomeView extends StatelessWidget {
 
     return Column(
       children: [
-        CustomSearchBar(
-          onSearchResults: (searchQuery) {
-            context.read<HomeBloc>().add(OnSearchSubmit(searchQuery));
-          },
-          hintText: "Search for a film...",
+        // Title Card
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 14),
+          child: PageTitleCard(
+            title: 'Home',
+          ),
         ),
+        // Search Bar
+        Padding(
+          padding:
+              const EdgeInsets.only(left: 20, top: 14, right: 20, bottom: 28),
+          child: CustomSearchBar(
+            onSearchResults: (searchQuery) {
+              context.read<HomeBloc>().add(OnSearchSubmit(searchQuery));
+            },
+            hintText: "Search for a film...",
+          ),
+        ),
+
+        // Film List View
         Expanded(
           child: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
@@ -71,6 +87,30 @@ class HomeView extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class PageTitleCard extends StatelessWidget {
+  final String title;
+
+  const PageTitleCard({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 1,
+        height: 66,
+        color: AppConstants.primaryColour,
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(fontSize: AppConstants.companyTitleSize),
+          ),
+        ),
+      ),
     );
   }
 }
