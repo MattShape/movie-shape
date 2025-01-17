@@ -8,3 +8,9 @@ class DestinationSelected extends NavRailEvent {
 
   DestinationSelected(this.selectedIndex);
 }
+
+class FilmSelected extends NavRailEvent {
+  final String filmId;
+
+  FilmSelected(this.filmId);
+}

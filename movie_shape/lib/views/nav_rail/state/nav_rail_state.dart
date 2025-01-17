@@ -13,6 +13,12 @@ final class DisplaySelectedPage extends NavRailState {
   DisplaySelectedPage(this.selectedIndex, this.currentPage);
 }
 
+final class DisplayFilmDetailPage extends NavRailState {
+  final String id;
+
+  DisplayFilmDetailPage(this.id);
+}
+
 final class NavRailError extends NavRailState {
   final String errorMessage;
 
