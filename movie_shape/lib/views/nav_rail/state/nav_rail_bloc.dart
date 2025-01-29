@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 import 'package:movie_shape/views/homepage/home_page.dart';
 import 'package:movie_shape/views/favourites/favourites_page.dart';
 import 'package:movie_shape/views/watchlist/watchlist_page.dart';
@@ -11,6 +10,7 @@ part 'nav_rail_state.dart';
 class NavRailBloc extends Bloc<NavRailEvent, NavRailState> {
   NavRailBloc() : super(DisplaySelectedPage(0, HomePage())) {
     on<DestinationSelected>(_onDestinationSelected);
+    on<FilmSelected>(_onFilmSelected);
   }
 
   void _onDestinationSelected(event, emit) async {
@@ -28,5 +28,10 @@ class NavRailBloc extends Bloc<NavRailEvent, NavRailState> {
     } catch (e) {
       emit(NavRailError(e.toString()));
     }
+  }
+
+  _onFilmSelected(event, emit) async {
+    debugPrint("Got HERE");
+    emit(DisplayFilmDetailPage(event.filmId));
   }
 }

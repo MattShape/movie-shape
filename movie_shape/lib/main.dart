@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:movie_shape/helpers/constants.dart';
 import 'package:movie_shape/views/nav_rail/nav_rail_page.dart';
 
