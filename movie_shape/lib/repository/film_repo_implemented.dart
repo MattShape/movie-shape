@@ -11,7 +11,7 @@ import "../models/film_search.dart";
 // Repository for handling API requests with OMDb API
 class FilmRepoImplemented implements FilmRepo {
   static const String _apiKey = "f7594dee";
-  static const String _baseUrl = "http://omdbapi.com/";
+  static const String _baseUrl = "http://localhost:8000/api";
 
   @override
   Future<Film> getFilmById({required String id}) async {
@@ -31,8 +31,16 @@ class FilmRepoImplemented implements FilmRepo {
   Future<List<FilmSummary>> searchFilmsByTitle(
       {required String searchQuery}) async {
     try {
-      final response = await http.get(
-          Uri.parse("$_baseUrl?apikey=$_apiKey&type=movie&s=$searchQuery"));
+      final response = await http.post(Uri.parse('$_baseUrl/movies/get-movies'),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: jsonEncode({
+            "search_query": searchQuery,
+            "rows_per_page": 15,
+            "page_number": 1
+          }));
 
       if (response.statusCode == 200) {
         FilmsSearch searchResponse =
@@ -112,7 +120,7 @@ class FilmRepoImplemented implements FilmRepo {
   Future<List<FilmSummary>?> getFavouritedFilms() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      // If favourites doesn't exist, initialise [] 
+      // If favourites doesn't exist, initialise []
       final filmJsonList = prefs.getStringList('favourites') ?? [];
 
       if (filmJsonList.isEmpty) {
@@ -129,7 +137,7 @@ class FilmRepoImplemented implements FilmRepo {
       throw Exception('Failed to load favourites: ${e.toString()}');
     }
   }
-  
+
   @override
   Future<void> addFilmToFavourites({required FilmSummary film}) async {
     try {
@@ -153,7 +161,7 @@ class FilmRepoImplemented implements FilmRepo {
       throw Exception('Failed to add film to favourites: ${e.toString()}');
     }
   }
-  
+
   @override
   Future<void> removeFilmFromFavourites({required FilmSummary film}) async {
     try {

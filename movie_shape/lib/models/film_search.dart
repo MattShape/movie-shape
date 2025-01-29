@@ -15,12 +15,13 @@ class FilmsSearch {
   factory FilmsSearch.fromJson(Map<String, dynamic> json) {
     return FilmsSearch(
       // convert JSON list into FilmSummary class
-      films: (json['Search'] as List<dynamic>?)
-          ?.map((item) => FilmSummary.fromJson(item as Map<String, dynamic>))
-          .toList() 
-          ?? [],
-      totalResults: json['totalResults'] ?? '0', 
-      response: json['Response'] ?? 'False',     
+      films: (json['current_page'] as List<dynamic>?)
+              ?.map(
+                  (item) => FilmSummary.fromJson(item as Map<String, dynamic>))
+              .toList() ??
+          [],
+      totalResults: json['totalResults'] ?? '0',
+      response: json['Response'] ?? 'False',
     );
   }
 }

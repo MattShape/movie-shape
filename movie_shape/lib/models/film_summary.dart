@@ -18,13 +18,13 @@ class FilmSummary {
         'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
     var filmSummary = FilmSummary(
-      title: json['Title'] ?? 'Unknown Title',
+      title: json['title'] ?? 'Unknown Title',
       year: json['Year'] ?? 'Unknown Year',
       type: json['Type'] ?? 'Unknown Type',
       imdbID: json['imdbID'] ?? 'Unknown imdbID',
       // if response is 'N/A' set to default poster, if null
-      poster: Uri.tryParse(json['Poster'] ?? '')?.hasAbsolutePath == true
-          ? json['Poster']
+      poster: Uri.tryParse(json['poster_link'] ?? '')?.hasAbsolutePath == true
+          ? json['poster_link']
           : defaultPosterUrl,
     );
 
