@@ -1,13 +1,13 @@
-import 'package:movie_shape/models/film.dart';
-import 'package:movie_shape/models/film_summary.dart';
-
 abstract class FilmRepo {
-  Future<Film> getFilmById({required String id});
-  Future<List<FilmSummary>> searchFilmsByTitle({required String searchQuery});
-  Future<List<FilmSummary>?> getFavouritedFilms();
-  Future<void> addFilmToFavourites({required FilmSummary film});
-  Future<void> removeFilmFromFavourites({required FilmSummary film});
-  Future<List<FilmSummary>?> getWatchlistFilms();
-  Future<void> addFilmToWatchlist({required FilmSummary film});
-  Future<void> removeFilmFromWatchlist({required FilmSummary film});
+  // TODO: replace void with appropraite type
+  Future<void> addFilm(
+      {required String title,
+      required String description,
+      required int releaseDate,
+      String? genre,
+      double? rating});
+  Future<void> removeFilm({required filmId});
+  Future<void> getFilm({required filmId});
+  Future<void> getFilms(
+      {int? rowsPerPage, int? pageNumber, String? searchQuery});
 }
