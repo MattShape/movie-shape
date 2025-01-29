@@ -17,9 +17,13 @@ class FilmSummary {
     const String defaultPosterUrl =
         'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
+    String parsedYear = json["release_date"] is int
+        ? json["release_date"].toString()
+        : json["release_date"] ?? "unknown_year";
+
     var filmSummary = FilmSummary(
       title: json['title'] ?? 'Unknown Title',
-      year: json['Year'] ?? 'Unknown Year',
+      year: parsedYear,
       type: json['Type'] ?? 'Unknown Type',
       imdbID: json['imdbID'] ?? 'Unknown imdbID',
       // if response is 'N/A' set to default poster, if null
