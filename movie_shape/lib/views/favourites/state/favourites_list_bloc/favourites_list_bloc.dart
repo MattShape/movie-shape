@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
 import 'package:movie_shape/repository/film_repo_implemented.dart';
+import 'package:movie_shape/repository/server_film_repo.dart';
+
 import 'package:movie_shape/models/film_summary.dart';
 
 part 'favourites_list_event.dart';
@@ -20,7 +22,7 @@ class FavouritesListBloc
       emit(FavouritesListLoading());
 
       List<FilmSummary> favouritesList =
-          await FilmRepoImplemented().getFavouritedFilms() ?? [];
+          await ServerFilmRepo().getFavouritedFilms() ?? [];
 
       emit(FavouritesListLoaded(favouritesList));
     } catch (e) {
@@ -34,7 +36,7 @@ class FavouritesListBloc
 
       emit(FavouritesListLoading());
       List<FilmSummary> favouritesList =
-          await FilmRepoImplemented().getFavouritedFilms() ?? [];
+          await ServerFilmRepo().getFavouritedFilms() ?? [];
       List<FilmSummary> filteredFilms = favouritesList
           .where((film) =>
               film.title.toLowerCase().contains(searchQuery.toLowerCase()))
@@ -53,7 +55,7 @@ class FavouritesListBloc
     try {
       emit(FavouritesListLoading());
       List<FilmSummary> favouritesList =
-          await FilmRepoImplemented().getFavouritedFilms() ?? [];
+          await ServerFilmRepo().getFavouritedFilms() ?? [];
       emit(FavouritesListLoaded(favouritesList));
     } catch (e) {
       emit(FavouritesListError(e.toString()));

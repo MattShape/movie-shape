@@ -3,12 +3,15 @@ import 'package:meta/meta.dart';
 
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
+import 'package:movie_shape/repository/server_film_repo.dart';
 
 part 'favourite_button_event.dart';
 part 'favourite_button_state.dart';
 
-class FavouriteButtonBloc extends Bloc<FavouriteButtonEvent, FavouriteButtonState> {
-  FavouriteButtonBloc({required this.filmId}) : super(FavouriteButtonInitial()) {
+class FavouriteButtonBloc
+    extends Bloc<FavouriteButtonEvent, FavouriteButtonState> {
+  FavouriteButtonBloc({required this.filmId})
+      : super(FavouriteButtonInitial()) {
     on<FavouriteButtonDisplayed>(_onFavouriteButtonDisplayed);
     on<FavouriteButtonPressed>(_onFavouriteButtonPressed);
   }
@@ -21,12 +24,12 @@ class FavouriteButtonBloc extends Bloc<FavouriteButtonEvent, FavouriteButtonStat
 
     try {
       List<FilmSummary>? favourites =
-          await FilmRepoImplemented().getFavouritedFilms();
+          await ServerFilmRepo().getFavouritedFilms();
       if (favourites != null) {
         // update state that film is loaded (true)
         emit(FavouriteButtonLoaded(
-        // checks if one element matches the condition
-        favourites.any((film) => film.imdbID == filmId)));
+            // checks if one element matches the condition
+            favourites.any((film) => film.imdbID == filmId)));
       } else {
         emit(FavouriteButtonLoaded(false));
       }
@@ -41,20 +44,20 @@ class FavouriteButtonBloc extends Bloc<FavouriteButtonEvent, FavouriteButtonStat
     try {
       bool isInFavouritesList = false;
 
-      List<FilmSummary>? favouritesList = 
-          await FilmRepoImplemented().getFavouritedFilms();
+      List<FilmSummary>? favouritesList =
+          await ServerFilmRepo().getFavouritedFilms();
 
       if (favouritesList != null) {
-        isInFavouritesList = 
+        isInFavouritesList =
             favouritesList.any((film) => film.imdbID == event.film.imdbID);
         print("isInFavouritesList: ${isInFavouritesList}");
       }
-      
+
       if (isInFavouritesList) {
-        await FilmRepoImplemented().removeFilmFromFavourites(film: event.film);
+        await ServerFilmRepo().removeFilmFromFavourites(film: event.film);
         emit(FavouriteButtonLoaded(false));
       } else {
-        await FilmRepoImplemented().addFilmToFavourites(film: event.film);
+        await ServerFilmRepo().addFilmToFavourites(film: event.film);
 
         emit(FavouriteButtonLoaded(true));
       }
