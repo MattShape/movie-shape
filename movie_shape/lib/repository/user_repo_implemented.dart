@@ -1,3 +1,4 @@
+import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/repository/user_repo.dart';
 
 class UserRepoImplemented implements UserRepo {
@@ -14,13 +15,13 @@ class UserRepoImplemented implements UserRepo {
   }
 
   @override
-  Future<void> getFavourites() {
+  Future<List<FilmSummary>> getFavouritedFilms() {
     // TODO: implement getFavourites
     throw UnimplementedError();
   }
 
   @override
-  Future<void> getWatchlist() {
+  Future<List<FilmSummary>> getWatchlistFilms() {
     // TODO: implement getWatchlist
     throw UnimplementedError();
   }
@@ -32,7 +33,7 @@ class UserRepoImplemented implements UserRepo {
   }
 
   @override
-  Future<void> removeFilmFromWatchlist({required String movieId}) {
+  Future<void> removeFilmFromWatchlist({required int movieId}) {
     // TODO: implement removeFilmFromWatchlist
     throw UnimplementedError();
   }

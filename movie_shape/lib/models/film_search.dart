@@ -2,25 +2,35 @@ import 'package:movie_shape/models/film_summary.dart';
 
 // Data representation of film by search request
 class FilmsSearch {
-  final List<FilmSummary> films;
-  final String totalResults;
-  final String response;
+  final List<FilmSummary> currentPage;
+  final int totalResults;
+  final int rowsPerPage;
+  final int totalPages;
 
   FilmsSearch({
-    required this.films,
+    required this.currentPage,
     required this.totalResults,
-    required this.response,
+    required this.rowsPerPage,
+    required this.totalPages,
   });
 
   factory FilmsSearch.fromJson(Map<String, dynamic> json) {
     return FilmsSearch(
-      // convert JSON list into FilmSummary class
-      films: (json['Search'] as List<dynamic>?)
-          ?.map((item) => FilmSummary.fromJson(item as Map<String, dynamic>))
-          .toList() 
-          ?? [],
-      totalResults: json['totalResults'] ?? '0', 
-      response: json['Response'] ?? 'False',     
+      currentPage: (json['current_page'] as List)
+          .map((item) => FilmSummary.fromJson(item))
+          .toList(),
+      totalResults: json['total_results'],
+      rowsPerPage: json['rows_per_page'],
+      totalPages: json['total_pages'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'current_page': currentPage.map((movie) => movie.toJson()).toList(),
+      'total_results': totalResults,
+      'rows_per_page': rowsPerPage,
+      'total_pages': totalPages,
+    };
   }
 }

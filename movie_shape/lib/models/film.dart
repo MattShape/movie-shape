@@ -1,178 +1,83 @@
-import 'package:movie_shape/models/rating.dart';
-
-// Data representing the film's detail from search by id request
 class Film {
+  final int id;
+  final String posterLink;
   final String title;
-  final String year;
-  final String rated;
-  final String released;
+  final int releaseDate;
+  final String certificate;
   final String runtime;
   final String genre;
+  final double rating;
+  final String description;
+  final int metaScore;
   final String director;
-  final List<String> writer;
-  final List<String> actors;
-  final String plot;
-  final List<String> language;
-  final String country;
-  final List<String> awards;
-  String poster;
-  final List<Rating> ratings;
-  final String metascore;
-  final String imdbRating;
-  final String imdbVotes;
-  final String imdbId;
-  final String type;
-  final String dvd;
-  final String boxOffice;
-  final String production;
-  final String response;
+  final String star1;
+  final String star2;
+  final String star3;
+  final String star4;
+  final int noOfVotes;
+  final String gross;
 
   Film({
+    required this.id,
+    required this.posterLink,
     required this.title,
-    required this.year,
-    required this.rated,
-    required this.released,
+    required this.releaseDate,
+    required this.certificate,
     required this.runtime,
     required this.genre,
+    required this.rating,
+    required this.description,
+    required this.metaScore,
     required this.director,
-    required this.writer,
-    required this.actors,
-    required this.plot,
-    required this.language,
-    required this.country,
-    required this.awards,
-    required this.poster,
-    required this.ratings,
-    required this.metascore,
-    required this.imdbRating,
-    required this.imdbVotes,
-    required this.imdbId,
-    required this.type,
-    required this.dvd,
-    required this.boxOffice,
-    required this.production,
-    required this.response,
+    required this.star1,
+    required this.star2,
+    required this.star3,
+    required this.star4,
+    required this.noOfVotes,
+    required this.gross,
   });
 
   factory Film.fromJson(Map<String, dynamic> json) {
-    const String defaultPosterUrl =
-        'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
-
-    var film = Film(
-      title: json['Title'] as String? ?? 'N/A',
-      year: json['Year'] as String? ?? 'N/A',
-      rated: json['Rated'] as String? ?? 'N/A',
-      released: json['Released'] as String? ?? 'N/A',
-      runtime: json['Runtime'] as String? ?? 'N/A',
-      genre: json['Genre'] as String? ?? 'N/A',
-      director: json['Director'] as String? ?? 'N/A',
-      // // convert csv string into list
-      writer: (json['Writer'] as String?)
-              ?.split(',')
-              .map((writer) => writer.trim())
-              .toList() ??
-          ['N/A'],
-      // convert csv string into list
-      actors: (json['Actors'] as String?)
-              ?.split(',')
-              .map((actor) => actor.trim())
-              .toList() ??
-          ['N/A'],
-      plot: json['Plot'] as String? ?? 'N/A',
-      // convert csv string into list
-      language: (json['Language'] as String?)
-              ?.split(',')
-              .map((actor) => actor.trim())
-              .toList() ??
-          ['N/A'],
-      country: json['Country'] as String? ?? 'N/A',
-      //awards: json['Awards'] as String? ?? 'N/A',
-      awards: (json['Awards'] as String?) // Extract awards string
-              ?.split(RegExp(r'[.&]')) // Split by "." and "&"
-              .map((part) => part.trim()) // Trim whitespace
-              .toList() ??
-          [], // Default to empty list if null
-      // if response is 'N/A' set to default poster, if null set to '', else keep url from response
-      poster: Uri.tryParse(json['Poster'] ?? '')?.hasAbsolutePath == true
-          ? json['Poster']
-          : defaultPosterUrl,
-      // convert JSON list into Rating class
-      ratings: (json['Ratings'] as List<dynamic>?)
-              ?.map((item) => Rating.fromJson(item))
-              .toList() ??
-          [],
-      metascore: json['Metascore'] as String? ?? 'N/A',
-      imdbRating: json['imdbRating'] as String? ?? 'N/A',
-      imdbVotes: json['imdbVotes'] as String? ?? 'N/A',
-      imdbId: json['imdbID'] as String? ?? 'N/A',
-      type: json['Type'] as String? ?? 'N/A',
-      dvd: json['DVD'] as String? ?? 'N/A',
-      boxOffice: json['BoxOffice'] as String? ?? 'N/A',
-      production: json['Production'] as String? ?? 'N/A',
-      response: json['Response']?.toString() ?? 'False',
+    return Film(
+      id: json['id'],
+      posterLink: json['poster_link'],
+      title: json['title'],
+      releaseDate: json['release_date'],
+      certificate: json['certificate'],
+      runtime: json['runtime'],
+      genre: json['genre'],
+      rating: (json['rating'] as num).toDouble(),
+      description: json['description'],
+      metaScore: json['meta_score'],
+      director: json['director'],
+      star1: json['star1'],
+      star2: json['star2'],
+      star3: json['star3'],
+      star4: json['star4'],
+      noOfVotes: json['no_of_votes'],
+      gross: json['gross'],
     );
-
-    return film;
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'Title': title,
-      'Year': year,
-      'Rated': rated,
-      'Released': released,
-      'Runtime': runtime,
-      'Genre': genre,
-      'Director': director,
-      'Writer': writer,
-      'Actors': actors,  
-      'Plot': plot,
-      'Language': language,
-      'Country': country,
-      'Awards': awards,  
-      'Poster': poster,
-      'Ratings': ratings.map((rating) => rating.toJson()).toList(),
-      'Metascore': metascore,
-      'imdbRating': imdbRating,
-      'imdbVotes': imdbVotes,
-      'imdbID': imdbId,
-      'Type': type,
-      'DVD': dvd,
-      'BoxOffice': boxOffice,
-      'Production': production,
-      'Response': response,
+      'id': id,
+      'poster_link': posterLink,
+      'title': title,
+      'release_date': releaseDate,
+      'certificate': certificate,
+      'runtime': runtime,
+      'genre': genre,
+      'rating': rating,
+      'description': description,
+      'meta_score': metaScore,
+      'director': director,
+      'star1': star1,
+      'star2': star2,
+      'star3': star3,
+      'star4': star4,
+      'no_of_votes': noOfVotes,
+      'gross': gross,
     };
-  }
-
-  factory Film.fromCustomJson(Map<String, dynamic> json) {
-    return Film(
-      title: json['Title'] ?? 'N/A',
-      year: json['Year'] ?? 'N/A',
-      rated: json['Rated'] ?? 'N/A',
-      released: json['Released'] ?? 'N/A',
-      runtime: json['Runtime'] ?? 'N/A',
-      genre: json['Genre'] ?? 'N/A',
-      director: json['Director'] ?? 'N/A',
-      writer: List<String>.from(json['Writer'] ?? []),
-      actors: List<String>.from(json['Actors'] ?? []),
-      plot: json['Plot'] ?? 'N/A',
-      language: List<String>.from(json['Language'] ?? []),
-      country: json['Country'] ?? 'N/A',
-      awards: List<String>.from(json['Awards'] ?? []),
-      poster: json['Poster'] ?? '',
-      ratings: (json['Ratings'] as List<dynamic>?)
-              ?.map((ratingJson) => Rating.fromJson(ratingJson))
-              .toList() ??
-          [],
-      metascore: json['Metascore'] ?? 'N/A',
-      imdbRating: json['imdbRating'] ?? 'N/A',
-      imdbVotes: json['imdbVotes'] ?? 'N/A',
-      imdbId: json['imdbID'] ?? 'N/A',
-      type: json['Type'] ?? 'N/A',
-      dvd: json['DVD'] ?? 'N/A',
-      boxOffice: json['BoxOffice'] ?? 'N/A',
-      production: json['Production'] ?? 'N/A',
-      response: json['Response'] ?? 'N/A',
-    );
   }
 }

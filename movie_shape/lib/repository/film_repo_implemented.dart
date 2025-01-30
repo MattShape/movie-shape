@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/models/film_summary.dart';
@@ -27,14 +26,23 @@ class FilmRepoImplemented implements FilmRepo {
   }
 
   @override
-  Future<void> getFilm({required filmId}) {
-    // TODO: implement getFilm
-    throw UnimplementedError();
+  Future<Film> getFilmById({required filmId}) async {
+    try {
+      String query = "${_baseUrl}/movies/${filmId}";
+      final response = await http.get(Uri.parse(query));
+      if (response.statusCode == 200) {
+        return Film.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+      } else {
+        throw Exception('Failed to load film');
+      }
+    } catch (e) {
+      throw Exception("failed to load film: ${e.toString()}");
+    }
   }
 
   @override
-  Future<void> getFilms(
-      {int? rowsPerPage, int? pageNumber, String? searchQuery}) {
+  Future<List<FilmSummary>> getFilms(
+      {int? rowsPerPage, int? pageNumber, String? searchQuery}) async {
     // TODO: implement getFilms
     throw UnimplementedError();
   }

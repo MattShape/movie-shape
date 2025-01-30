@@ -1,3 +1,5 @@
+import 'package:movie_shape/models/film.dart';
+
 abstract class FilmRepo {
   // TODO: replace void with appropraite type
   Future<void> addFilm(
@@ -7,7 +9,7 @@ abstract class FilmRepo {
       String? genre,
       double? rating});
   Future<void> removeFilm({required filmId});
-  Future<void> getFilm({required filmId});
+  Future<Film> getFilmById({required filmId});
   Future<void> getFilms(
       {int? rowsPerPage, int? pageNumber, String? searchQuery});
 }
