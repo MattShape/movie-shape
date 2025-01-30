@@ -8,7 +8,11 @@
             "name": "movie_shape",
             "cwd": "movie_shape",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": [
+                "--web-port",
+                "8080"
+            ]
         },
         {
             "name": "movie_shape (profile mode)",

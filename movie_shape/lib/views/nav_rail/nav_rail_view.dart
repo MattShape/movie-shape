@@ -29,7 +29,7 @@ class NavRailView extends StatelessWidget {
             NavRailWidget(
               selectedIndex: 3,
             ),
-            Expanded(child: FilmDetailPage(filmId: state.id)),
+            //Expanded(child: FilmDetailPage(filmId: state.id)),
           ],
         ));
       }

@@ -6,7 +6,7 @@ sealed class WatchlistButtonEvent {}
 class WatchlistButtonDisplayed extends WatchlistButtonEvent {}
 
 class WatchlistButtonPressed extends WatchlistButtonEvent {
-  final FilmSummary film;
+  final Film film;
 
   WatchlistButtonPressed(this.film);
 }

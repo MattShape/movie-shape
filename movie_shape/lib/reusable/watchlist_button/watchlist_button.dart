@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_shape/helpers/constants.dart';
-import 'package:movie_shape/models/film_summary.dart';
+import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/reusable/watchlist_button/watchlist_button_bloc/watchlist_button_bloc.dart';
 
 class WatchlistButton extends StatelessWidget {
-  final FilmSummary film;
+  final Film film;
   const WatchlistButton({super.key, required this.film});
 
   @override

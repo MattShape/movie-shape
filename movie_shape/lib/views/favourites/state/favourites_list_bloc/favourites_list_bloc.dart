@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-
-import 'package:movie_shape/repository/film_repo_implemented.dart';
-import 'package:movie_shape/models/film_summary.dart';
+import 'package:movie_shape/models/film.dart';
 import 'package:movie_shape/repository/user_repo_implemented.dart';
 
 part 'favourites_list_event.dart';
@@ -20,7 +18,7 @@ class FavouritesListBloc
     try {
       emit(FavouritesListLoading());
 
-      List<FilmSummary> favouritesList =
+      List<Film> favouritesList =
           await UserRepoImplemented().getFavouritedFilms();
 
       emit(FavouritesListLoaded(favouritesList));
@@ -34,9 +32,9 @@ class FavouritesListBloc
       String searchQuery = event.searchQuery;
 
       emit(FavouritesListLoading());
-      List<FilmSummary> favouritesList =
+      List<Film> favouritesList =
           await UserRepoImplemented().getFavouritedFilms();
-      List<FilmSummary> filteredFilms = favouritesList
+      List<Film> filteredFilms = favouritesList
           .where((film) =>
               film.title.toLowerCase().contains(searchQuery.toLowerCase()))
           .toList();
@@ -53,7 +51,7 @@ class FavouritesListBloc
   void _onClearFavouritesSearch(event, emit) async {
     try {
       emit(FavouritesListLoading());
-      List<FilmSummary> favouritesList =
+      List<Film> favouritesList =
           await UserRepoImplemented().getFavouritedFilms();
       emit(FavouritesListLoaded(favouritesList));
     } catch (e) {
