@@ -17,7 +17,9 @@ class PageTitleCard extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(fontSize: AppConstants.companyTitleSize),
+            style: TextStyle(
+                fontSize: AppConstants.companyTitleSize,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),

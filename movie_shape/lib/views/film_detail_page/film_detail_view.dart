@@ -47,9 +47,9 @@ class FilmDetailView extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(flex: 1, child: Poster(film: film)),
+                            Expanded(flex: 3, child: Poster(film: film)),
                             Expanded(
-                              flex: 2,
+                              flex: 4,
                               child: SingleChildScrollView(
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 32),
@@ -69,7 +69,7 @@ class FilmDetailView extends StatelessWidget {
                                         RuntimeRow(context, film: film),
                                         SizedBox(height: 20),
                                         RatingColumn(film: film),
-                                        SizedBox(height: 12),
+                                        SizedBox(height: 20),
                                         PlotBox(film: film),
                                         SizedBox(height: 32),
                                         ActorsWritersRow(context, film: film),
@@ -174,7 +174,7 @@ class ActorsWritersRow extends StatelessWidget {
                     item.trim(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: AppConstants.bodySize,
+                      fontSize: 15,
                     ),
                   ),
                 ))
@@ -198,7 +198,7 @@ class ActorsWritersRow extends StatelessWidget {
                     item.trim(),
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.onPrimary,
-                      fontSize: AppConstants.bodySize,
+                      fontSize: 15,
                     ),
                   ),
                 ))
@@ -282,7 +282,7 @@ class YearFavouriteWatchlistRow extends StatelessWidget {
             year: film.year,
             imdbID: film.imdbId,
             type: film.type,
-            poster: film.poster ?? "",
+            poster: film.poster,
           ),
         ),
         SizedBox(width: 20),
@@ -292,17 +292,17 @@ class YearFavouriteWatchlistRow extends StatelessWidget {
             year: film.year,
             imdbID: film.imdbId,
             type: film.type,
-            poster: film.poster ?? "",
+            poster: film.poster,
           ),
         ),
-        IconButton(
-          onPressed: () {
-            context
-                .read<FilmDetailPageBloc>()
-                .add(ShowLongDescription(film.imdbId, longDescription));
-          },
-          icon: Icon(Icons.unfold_more),
-        ),
+        // IconButton(
+        //   onPressed: () {
+        //     context
+        //         .read<FilmDetailPageBloc>()
+        //         .add(ShowLongDescription(film.imdbId, longDescription));
+        //   },
+        //   icon: Icon(Icons.unfold_more),
+        // ),
       ],
     );
   }
@@ -320,11 +320,11 @@ class RatingColumn extends StatelessWidget {
       children: film.ratings
           .map(
             (rating) => Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+              padding: const EdgeInsets.only(bottom: 4),
               child: Row(
                 children: [
                   Text(
-                    rating.source,
+                    "${rating.source}:",
                     style: TextStyle(
                       color: AppConstants.textColour,
                       fontSize: AppConstants.bodySize,
@@ -357,11 +357,11 @@ class PlotBox extends StatelessWidget {
     return Wrap(
       children: [
         Text(
-          'Description: ${film.plot}',
+          film.plot,
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-            fontSize: AppConstants.bodySize,
-          ),
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 19,
+              fontStyle: FontStyle.italic),
           overflow: TextOverflow.visible,
         ),
       ],
@@ -384,9 +384,9 @@ class FilmHeading extends StatelessWidget {
         child: Center(
           child: Text(film.title,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
-                fontSize: AppConstants.filmTitleSize,
-              )),
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontSize: AppConstants.filmTitleSize,
+                  fontWeight: FontWeight.bold)),
         ),
       ),
     );
