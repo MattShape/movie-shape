@@ -18,7 +18,7 @@ class WatchlistButtonBloc
             await FilmRepoImplemented().getWatchlistFilms();
         if (favourites != null) {
           emit(WatchlistButtonLoaded(
-              favourites.any((film) => film.imdbID == filmId)));
+              favourites.any((film) => film.id == filmId)));
         } else {
           emit(WatchlistButtonLoaded(false));
         }
@@ -34,8 +34,7 @@ class WatchlistButtonBloc
         List<FilmSummary>? watchlist =
             await FilmRepoImplemented().getWatchlistFilms();
         if (watchlist != null) {
-          isInWatchlist =
-              watchlist.any((film) => film.imdbID == event.film.imdbID);
+          isInWatchlist = watchlist.any((film) => film.id == event.film.id);
         }
         if (isInWatchlist) {
           await FilmRepoImplemented().removeFilmFromWatchlist(film: event.film);

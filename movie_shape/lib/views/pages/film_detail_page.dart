@@ -269,7 +269,7 @@ class FilmDetailPage extends StatelessWidget {
           film: FilmSummary(
             title: film.title,
             year: film.year,
-            imdbID: film.imdbId,
+            id: film.id,
             type: film.type,
             poster: film.poster,
           ),
@@ -279,7 +279,7 @@ class FilmDetailPage extends StatelessWidget {
           film: FilmSummary(
             title: film.title,
             year: film.year,
-            imdbID: film.imdbId,
+            id: film.id,
             type: film.type,
             poster: film.poster,
           ),

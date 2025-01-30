@@ -2,14 +2,14 @@
 class FilmSummary {
   final String title;
   final String year;
-  final String imdbID;
+  final String id;
   final String type;
   final String poster;
 
   FilmSummary(
       {required this.title,
       required this.year,
-      required this.imdbID,
+      required this.id,
       required this.type,
       required this.poster});
 
@@ -21,11 +21,14 @@ class FilmSummary {
         ? json["release_date"].toString()
         : json["release_date"] ?? "unknown_year";
 
+    String parsedId =
+        json["id"] is int ? json["id"].toString() : json["id"] ?? "unknown_id";
+
     var filmSummary = FilmSummary(
       title: json['title'] ?? 'Unknown Title',
       year: parsedYear,
       type: json['Type'] ?? 'Unknown Type',
-      imdbID: json['imdbID'] ?? 'Unknown imdbID',
+      id: parsedId,
       // if response is 'N/A' set to default poster, if null
       poster: Uri.tryParse(json['poster_link'] ?? '')?.hasAbsolutePath == true
           ? json['poster_link']
@@ -39,7 +42,7 @@ class FilmSummary {
     return {
       'Title': title,
       'Year': year,
-      'imdbID': imdbID,
+      'id': id,
       'Type': type,
       'Poster': poster,
     };

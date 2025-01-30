@@ -21,7 +21,7 @@ class ListCard extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
           child: InkWell(
             onTap: () {
-              onTap(film.imdbID);
+              onTap(film.id);
             },
             child: Row(
               children: [

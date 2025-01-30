@@ -13,7 +13,7 @@ class FavouriteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => FavouriteButtonBloc(
-        filmId: film.imdbID,
+        filmId: film.id,
       )..add(FavouriteButtonDisplayed()),
       child: BlocBuilder<FavouriteButtonBloc, FavouriteButtonState>(
         builder: (context, state) {

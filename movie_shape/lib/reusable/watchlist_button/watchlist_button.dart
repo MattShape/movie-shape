@@ -12,7 +12,7 @@ class WatchlistButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => WatchlistButtonBloc(
-        filmId: film.imdbID,
+        filmId: film.id,
       )..add(WatchlistButtonDisplayed()),
       child: BlocBuilder<WatchlistButtonBloc, WatchlistButtonState>(
         builder: (context, state) {

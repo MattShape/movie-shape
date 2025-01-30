@@ -20,7 +20,7 @@ class Film {
   final String metascore;
   final String imdbRating;
   final String imdbVotes;
-  final String imdbId;
+  final String id;
   final String type;
   final String dvd;
   final String boxOffice;
@@ -46,7 +46,7 @@ class Film {
     required this.metascore,
     required this.imdbRating,
     required this.imdbVotes,
-    required this.imdbId,
+    required this.id,
     required this.type,
     required this.dvd,
     required this.boxOffice,
@@ -104,7 +104,7 @@ class Film {
       metascore: json['Metascore'] as String? ?? 'N/A',
       imdbRating: json['imdbRating'] as String? ?? 'N/A',
       imdbVotes: json['imdbVotes'] as String? ?? 'N/A',
-      imdbId: json['imdbID'] as String? ?? 'N/A',
+      id: json['imdbID'] as String? ?? 'N/A',
       type: json['Type'] as String? ?? 'N/A',
       dvd: json['DVD'] as String? ?? 'N/A',
       boxOffice: json['BoxOffice'] as String? ?? 'N/A',
@@ -135,7 +135,7 @@ class Film {
       'Metascore': metascore,
       'imdbRating': imdbRating,
       'imdbVotes': imdbVotes,
-      'imdbID': imdbId,
+      'imdbID': id,
       'Type': type,
       'DVD': dvd,
       'BoxOffice': boxOffice,
@@ -167,7 +167,7 @@ class Film {
       metascore: json['Metascore'] ?? 'N/A',
       imdbRating: json['imdbRating'] ?? 'N/A',
       imdbVotes: json['imdbVotes'] ?? 'N/A',
-      imdbId: json['imdbID'] ?? 'N/A',
+      id: json['imdbID'] ?? 'N/A',
       type: json['Type'] ?? 'N/A',
       dvd: json['DVD'] ?? 'N/A',
       boxOffice: json['BoxOffice'] ?? 'N/A',

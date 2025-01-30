@@ -10,7 +10,6 @@ import "../models/film_search.dart";
 
 // Repository for handling API requests with OMDb API
 class FilmRepoImplemented implements FilmRepo {
-  static const String _apiKey = "f7594dee";
   static const String _baseUrl = "http://localhost:8000/api";
 
   @override
@@ -83,7 +82,7 @@ class FilmRepoImplemented implements FilmRepo {
       final exists = filmJsonList.any((filmJson) {
         final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
         final existingFilm = FilmSummary.fromJson(filmMap);
-        return existingFilm.imdbID == film.imdbID;
+        return existingFilm.id == film.id;
       });
 
       if (!exists) {
@@ -107,7 +106,7 @@ class FilmRepoImplemented implements FilmRepo {
       filmJsonList.removeWhere((filmJson) {
         final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
         final existingFilm = FilmSummary.fromJson(filmMap);
-        return existingFilm.imdbID == film.imdbID;
+        return existingFilm.id == film.id;
       });
 
       await prefs.setStringList('watchlist', filmJsonList);
@@ -119,48 +118,72 @@ class FilmRepoImplemented implements FilmRepo {
   @override
   Future<List<FilmSummary>?> getFavouritedFilms() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      // If favourites doesn't exist, initialise []
-      final filmJsonList = prefs.getStringList('favourites') ?? [];
+      final response = await http.get(
+        Uri.parse("$_baseUrl/movies/get-favourites"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> jsonResponse = jsonDecode(response.body);
 
-      if (filmJsonList.isEmpty) {
-        return [];
+        return jsonResponse.map((filmJson) {
+          return FilmSummary.fromJson(filmJson as Map<String, dynamic>);
+        }).toList();
+      } else {
+        throw Exception("failed to fetch favourites from server");
       }
-
-      // Iterate and perform a transformation
-      return filmJsonList.map((filmJson) {
-        // Convert Json list to FilmSummary object
-        final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
-        return FilmSummary.fromJson(filmMap);
-      }).toList();
     } catch (e) {
-      throw Exception('Failed to load favourites: ${e.toString()}');
+      throw Exception("Failed to load favourites: ${e.toString()}");
     }
   }
 
   @override
   Future<void> addFilmToFavourites({required FilmSummary film}) async {
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final filmJsonList = prefs.getStringList('favourites') ?? [];
+      final response = await http.post(
+        Uri.parse("${_baseUrl}/movies/add-favourite"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: jsonEncode({
+          "movie_id": film.id,
+          "user_id": 1,
+        }),
+      );
 
-      // Check if film already exists in watchlist
-      final exists = filmJsonList.any((filmJson) {
-        final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
-        final existingFilm = FilmSummary.fromJson(filmMap);
-        return existingFilm.imdbID == film.imdbID;
-      });
-
-      if (!exists) {
-        // Convert FilmSummary to JSON string and add to list
-        final filmJson = jsonEncode(film.toJson());
-        filmJsonList.add(filmJson);
-        await prefs.setStringList('favourites', filmJsonList);
+      if (response.statusCode != 200) {
+        throw Exception("Failed to add film");
       }
     } catch (e) {
-      throw Exception('Failed to add film to favourites: ${e.toString()}');
+      throw Exception("failed to add film to favourites: ${e.toString()}");
     }
   }
+  // @override
+  // Future<void> addFilmToFavourites({required FilmSummary film}) async {
+  //   try {
+  //     final prefs = await SharedPreferences.getInstance();
+  //     final filmJsonList = prefs.getStringList('favourites') ?? [];
+
+  //     // Check if film already exists in watchlist
+  //     final exists = filmJsonList.any((filmJson) {
+  //       final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
+  //       final existingFilm = FilmSummary.fromJson(filmMap);
+  //       return existingFilm.imdbID == film.imdbID;
+  //     });
+
+  //     if (!exists) {
+  //       // Convert FilmSummary to JSON string and add to list
+  //       final filmJson = jsonEncode(film.toJson());
+  //       filmJsonList.add(filmJson);
+  //       await prefs.setStringList('favourites', filmJsonList);
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Failed to add film to favourites: ${e.toString()}');
+  //   }
+  // }
 
   @override
   Future<void> removeFilmFromFavourites({required FilmSummary film}) async {
@@ -172,7 +195,7 @@ class FilmRepoImplemented implements FilmRepo {
       filmJsonList.removeWhere((filmJson) {
         final filmMap = jsonDecode(filmJson) as Map<String, dynamic>;
         final existingFilm = FilmSummary.fromJson(filmMap);
-        return existingFilm.imdbID == film.imdbID;
+        return existingFilm.id == film.id;
       });
 
       await prefs.setStringList('favourites', filmJsonList);
