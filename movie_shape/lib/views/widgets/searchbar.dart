@@ -38,7 +38,7 @@ class CustomSearchBar extends StatelessWidget {
             TextStyle(color: AppConstants.primaryColour)),
         hintText: hintText,
         controller: _controller,
-        onSubmitted: (value) {
+        onSubmitted: (value) async {
           _handleSearch(value);
         },
         leading: Icon(

@@ -100,6 +100,7 @@ class ServerFilmRepo implements FilmRepo {
   @override
   Future<List<FilmSummary>?> getWatchlistFilms() async {
     try {
+      await Future.delayed(Duration(milliseconds: 750));
       String query = "${_baseUrl}/movies/get-watchlist";
       final response = await http.get(Uri.parse(query));
       if (response.statusCode == 200) {
@@ -168,6 +169,7 @@ class ServerFilmRepo implements FilmRepo {
 
   @override
   Future<List<FilmSummary>?> getFavouritedFilms() async {
+    await Future.delayed(Duration(milliseconds: 500));
     try {
       final response = await http.get(
         Uri.parse("$_baseUrl/movies/get-favourites"),
