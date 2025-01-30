@@ -21,7 +21,7 @@ class ListCard extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 13.0),
           child: InkWell(
             onTap: () {
-              onTap(film.imdbID);
+              onTap(film.id as String);
             },
             child: Row(
               children: [
@@ -33,7 +33,7 @@ class ListCard extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(6.0),
                         child: Image.network(
-                          film.poster,
+                          film.posterLink,
                           height: 120,
                           fit: BoxFit.cover,
                         ),
@@ -59,7 +59,7 @@ class ListCard extends StatelessWidget {
                           height: 8.0,
                         ),
                         Text(
-                          "Release date: ${film.year}",
+                          "Release date: ${film.releaseDate}",
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               color: AppConstants.textColour,

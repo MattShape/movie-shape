@@ -2,23 +2,24 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:movie_shape/models/film_summary.dart';
 import 'package:movie_shape/repository/film_repo_implemented.dart';
+import 'package:movie_shape/repository/user_repo_implemented.dart';
 
 part 'watchlist_button_event.dart';
 part 'watchlist_button_state.dart';
 
 class WatchlistButtonBloc
     extends Bloc<WatchlistButtonEvent, WatchlistButtonState> {
-  final String filmId;
+  final int filmId;
   WatchlistButtonBloc({required this.filmId})
       : super(WatchlistButtonInitial()) {
     on<WatchlistButtonDisplayed>((event, emit) async {
       emit(WatchlistButtonLoading());
       try {
-        List<FilmSummary>? favourites =
-            await FilmRepoImplemented().getWatchlistFilms();
-        if (favourites != null) {
+        List<FilmSummary>? watchlist =
+            await UserRepoImplemented().getWatchlistFilms();
+        if (watchlist != null) {
           emit(WatchlistButtonLoaded(
-              favourites.any((film) => film.imdbID == filmId)));
+              watchlist.any((film) => film.id == filmId)));
         } else {
           emit(WatchlistButtonLoaded(false));
         }
@@ -32,17 +33,17 @@ class WatchlistButtonBloc
       try {
         bool isInWatchlist = false;
         List<FilmSummary>? watchlist =
-            await FilmRepoImplemented().getWatchlistFilms();
+            await UserRepoImplemented().getWatchlistFilms();
         if (watchlist != null) {
-          isInWatchlist =
-              watchlist.any((film) => film.imdbID == event.film.imdbID);
+          isInWatchlist = watchlist.any((film) => film.id == event.film.id);
         }
         if (isInWatchlist) {
-          await FilmRepoImplemented().removeFilmFromWatchlist(film: event.film);
+          await UserRepoImplemented()
+              .removeFilmFromWatchlist(movieId: event.film.id);
 
           emit(WatchlistButtonLoaded(false));
         } else {
-          await FilmRepoImplemented().addFilmToWatchlist(film: event.film);
+          await UserRepoImplemented().getWatchlistFilms();
 
           emit(WatchlistButtonLoaded(true));
         }

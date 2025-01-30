@@ -7,12 +7,11 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
-    //
     on<OnSearchSubmit>((event, emit) async {
       try {
         emit(HomeLoading());
         List<FilmSummary> filmList = await FilmRepoImplemented()
-            .searchFilmsByTitle(searchQuery: event.searchQuery);
+            .getFilms(searchQuery: event.searchQuery);
         emit(HomeLoaded(filmList));
       } catch (e) {
         emit(HomeError(e.toString()));

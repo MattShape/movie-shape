@@ -12,7 +12,8 @@ class FilmDetailPageBloc
       try {
         emit(FilmDetailPageLoading());
 
-        Film film = await FilmRepoImplemented().getFilmById(id: event.filmId);
+        Film film =
+            await FilmRepoImplemented().getFilmById(filmId: event.filmId);
         emit(FilmDetailPageLoaded(film, true));
       } catch (e) {
         emit(FilmDetailPageError(e.toString()));
@@ -22,8 +23,8 @@ class FilmDetailPageBloc
       try {
         emit(FilmDetailPageLoading());
 
-        Film film = await FilmRepoImplemented().getFilmById(
-            id: event.filmId, longDescription: event.longDescription);
+        Film film =
+            await FilmRepoImplemented().getFilmById(filmId: event.filmId);
         emit(FilmDetailPageLoaded(film, true));
       } catch (e) {
         emit(FilmDetailPageError(e.toString()));
