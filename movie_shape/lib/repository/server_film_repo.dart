@@ -14,7 +14,8 @@ class ServerFilmRepo implements FilmRepo {
       String query = "${_baseUrl}/movies/${id}";
       final response = await http.get(Uri.parse(query));
       if (response.statusCode == 200) {
-        return Film.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+        return Film.fromServerJson(
+            jsonDecode(response.body) as Map<String, dynamic>);
       } else {
         throw Exception('Failed to load film');
       }
