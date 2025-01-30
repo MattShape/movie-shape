@@ -34,7 +34,7 @@ class FilmSummary {
   Map<String, dynamic> toJson() {
     return {
       'Title': title,
-      'Year': year,
+      'Year': int.parse(year),
       'id': int.parse(imdbID),
       'Type': type,
       'Poster': poster,
