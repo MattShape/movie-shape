@@ -1,18 +1,18 @@
 import 'package:bloc/bloc.dart';
 import 'package:movie_shape/models/film_summary.dart';
-import 'package:movie_shape/repository/film_repo_implemented.dart';
+import 'package:movie_shape/repository/film_repo.dart';
 
 part 'watchlist_event.dart';
 part 'watchlist_state.dart';
 
 class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
-  WatchlistBloc() : super(WatchlistInitial()) {
+  FilmRepo filmRepo;
+  WatchlistBloc({required this.filmRepo}) : super(WatchlistInitial()) {
     on<LoadWatchlist>((event, emit) async {
       try {
         emit(WatchlistLoading());
         await Future.delayed(Duration(seconds: 2));
-        List<FilmSummary> watchlist =
-            await FilmRepoImplemented().getWatchlistFilms() ?? [];
+        List<FilmSummary> watchlist = await filmRepo.getWatchlistFilms() ?? [];
         emit(WatchlistLoaded(watchlist));
       } catch (e) {
         emit(WatchlistError(e.toString()));
@@ -23,9 +23,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
         String searchQuery = event.searchQuery;
 
         emit(WatchlistLoading());
-        await Future.delayed(Duration(seconds: 2));
-        List<FilmSummary> watchlist =
-            await FilmRepoImplemented().getWatchlistFilms() ?? [];
+        List<FilmSummary> watchlist = await filmRepo.getWatchlistFilms() ?? [];
 
         // filter list and emit new filtered version of list
         List<FilmSummary> filteredFilms = watchlist
@@ -44,8 +42,7 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
     on<ClearWatchSearch>((event, emit) async {
       try {
         emit(WatchlistLoading());
-        List<FilmSummary> watchlist =
-            await FilmRepoImplemented().getWatchlistFilms() ?? [];
+        List<FilmSummary> watchlist = await filmRepo.getWatchlistFilms() ?? [];
         emit(WatchlistLoaded(watchlist));
       } catch (e) {
         emit(WatchlistError(e.toString()));

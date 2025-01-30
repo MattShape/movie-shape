@@ -115,6 +115,75 @@ class Film {
     return film;
   }
 
+  factory Film.fromServerJson(Map<String, dynamic> json) {
+    const String defaultPosterUrl =
+        'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
+
+    var film = Film(
+      title: json['title'] as String? ?? 'N/A',
+      year: (json['release_date'] as int?).toString() ?? 'N/A',
+      rated: json['certificate'] as String? ?? 'N/A',
+      released: json['released'] as String? ?? 'N/A',
+      runtime: json['runtime'] as String? ?? 'N/A',
+      genre: json['genre'] as String? ?? 'N/A',
+      director: json['director'] as String? ?? 'N/A',
+      // TODO: NO WRITER FROM SERVER RESPONSE
+      writer: (json['writer'] as String?)
+              ?.split(',')
+              .map((writer) => writer.trim())
+              .toList() ??
+          ['N/A'],
+      actors: [
+        json['star1'] as String? ?? 'N/A',
+        json['star2'] as String? ?? 'N/A',
+        json['star3'] as String? ?? 'N/A',
+        json['star4'] as String? ?? 'N/A',
+      ],
+      plot: json['description'] as String? ?? 'N/A',
+      // TODO: NO LANGUAGE FROM SERVER RESPONSE
+      language: (json['language'] as String?)
+              ?.split(',')
+              .map((actor) => actor.trim())
+              .toList() ??
+          ['N/A'],
+      // TODO: NO COUNTRY FROM SERVER RESPONSE
+      country: json['country'] as String? ?? 'N/A',
+      // TODO: NO AWARDS FROM SERVER RESPONSE
+      awards: (json['awards'] as String?)
+              ?.split(RegExp(r'[.&]')) // Split by "." and "&"
+              .map((part) => part.trim()) // Trim whitespace
+              .toList() ??
+          [],
+      poster: Uri.tryParse(json['poster_link'] ?? '')?.hasAbsolutePath == true
+          ? json['poster_link']
+          : defaultPosterUrl,
+      ratings: [
+        Rating(
+            source: 'IMDb',
+            value: json['imdb_rating'] as String? ??
+                'N/A'), // SQL Column: imdb_rating
+        Rating(
+            source: 'Metascore',
+            value: (json['meta_score'] as int?).toString() ??
+                'N/A'), // SQL Column: meta_score
+      ],
+      metascore: (json['meta_score'] as int?).toString() ?? 'N/A',
+      imdbRating:
+          json['imdb_rating'] as String? ?? 'N/A', // SQL Column: imdb_rating
+      imdbVotes: (json['no_of_votes'] as int?).toString() ??
+          'N/A', // SQL Column: no_of_votes
+      imdbId: (json['id'] as int?).toString() ?? 'N/A',
+      type: 'Film',
+      dvd: 'N/A',
+      boxOffice: json['gross'] as String? ?? 'N/A',
+      // TODO: no production from SERVER RESPONSE
+      production: json['production'] as String? ?? 'N/A',
+      response: 'True',
+    );
+
+    return film;
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'title': title,

@@ -1,4 +1,6 @@
 // Data representation of a film's summary from film by search request
+import 'package:movie_shape/models/film.dart';
+
 class FilmSummary {
   final String title;
   final String year;
@@ -29,6 +31,16 @@ class FilmSummary {
     );
 
     return filmSummary;
+  }
+
+  factory FilmSummary.fromFilm(Film film) {
+    return FilmSummary(
+      title: film.title,
+      year: film.year,
+      imdbID: film.imdbId,
+      type: film.type,
+      poster: film.poster,
+    );
   }
 
   Map<String, dynamic> toJson() {

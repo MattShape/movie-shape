@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_shape/repository/server_film_repo.dart';
 import 'package:movie_shape/views/watchlist/state/watchlist_bloc/watchlist_bloc.dart';
 import 'package:movie_shape/views/watchlist/watchlist_view.dart';
 
@@ -11,7 +12,8 @@ class WatchlistPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => WatchlistBloc()..add(LoadWatchlist()),
+          create: (context) =>
+              WatchlistBloc(filmRepo: ServerFilmRepo())..add(LoadWatchlist()),
         ),
       ],
       child: WatchlistView(),
