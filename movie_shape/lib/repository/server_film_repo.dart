@@ -24,19 +24,27 @@ class ServerFilmRepo implements FilmRepo {
   }
 
   @override
-  Future<List<FilmSummary>> searchFilmsByTitle(
-      {required String searchQuery}) async {
+  Future<void> addFilmToWatchlist({required FilmSummary film}) async {
     try {
-      final response = await http.post(Uri.parse('$_baseUrl/movies/get-movies'),
-          headers: {
-            "Content-Type": "application/json",
-          },
-            "Accept": "application/json"
-          body: jsonEncode({
-            "search_query": searchQuery,
-            "rows_per_page": 15,
-            "page_number": 1
-          }));
+      final response = await http.post(
+        Uri.parse("$_baseUrl/movies/add-movie-to-watchlist"),
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: jsonEncode({
+          "movie_id": film.imdbID,
+          "user_id": 1,
+        }),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception("Failed to add film");
+      }
+    } catch (e) {
+      throw Exception("failed to add film to favourites: ${e.toString()}");
+    }
+  }
 
         FilmsSearch searchResponse =
       if (response.statusCode == 200) {
@@ -136,9 +144,46 @@ class ServerFilmRepo implements FilmRepo {
                 Film.fromServerJson(filmJson as Map<String, dynamic>))
         return films.map((film) => FilmSummary.fromFilm(film)).toList();
       } else {
-        throw Exception('Failed to load film');
+        throw Exception('Failed to load watchlist');
       }
     } catch (e) {
-      throw Exception("failed to load film: ${e.toString()}");
+      throw Exception("failed to load watchlist: ${e.toString()}");
     }
   }
+
+  @override
+  Future<void> removeFilmFromFavourites({required FilmSummary film}) {
+    // TODO: implement removeFilmFromFavourites
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeFilmFromWatchlist({required FilmSummary film}) async {
+    try {
+      final response = await http.post(
+          Uri.parse("$_baseUrl/movies/remove-movie-from-watchlist"),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: jsonEncode(
+            {
+              "movie_id": film.imdbID,
+              "user_id": 1,
+            },
+          ));
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to remove film from watchlist');
+      }
+    } catch (e) {
+      throw Exception("failed to remove film watchlist: ${e.toString()}");
+    }
+  }
+
+  @override
+  Future<List<FilmSummary>> searchFilmsByTitle({required String searchQuery}) {
+    // TODO: implement searchFilmsByTitle
+    throw UnimplementedError();
+  }
+}
