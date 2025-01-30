@@ -11,7 +11,6 @@ class WatchlistBloc extends Bloc<WatchlistEvent, WatchlistState> {
     on<LoadWatchlist>((event, emit) async {
       try {
         emit(WatchlistLoading());
-        await Future.delayed(Duration(seconds: 2));
         List<FilmSummary> watchlist = await filmRepo.getWatchlistFilms() ?? [];
         emit(WatchlistLoaded(watchlist));
       } catch (e) {

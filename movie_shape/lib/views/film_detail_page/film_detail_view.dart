@@ -239,12 +239,17 @@ class DirectorRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: [
-        Text(
-          'Director: ${film.director}',
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-            fontSize: AppConstants.bodySize,
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Director: ${film.director}',
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                fontSize: AppConstants.bodySize,
+              ),
+            ),
+          ],
         ),
       ],
     );

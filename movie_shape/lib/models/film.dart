@@ -160,16 +160,14 @@ class Film {
       ratings: [
         Rating(
             source: 'IMDb',
-            value: json['imdb_rating'] as String? ??
-                'N/A'), // SQL Column: imdb_rating
+            value: (json['rating'] as double?).toString() ?? 'N/A'),
         Rating(
             source: 'Metascore',
             value: (json['meta_score'] as int?).toString() ??
                 'N/A'), // SQL Column: meta_score
       ],
       metascore: (json['meta_score'] as int?).toString() ?? 'N/A',
-      imdbRating:
-          json['imdb_rating'] as String? ?? 'N/A', // SQL Column: imdb_rating
+      imdbRating: (json['rating'] as double?).toString() ?? 'N/A',
       imdbVotes: (json['no_of_votes'] as int?).toString() ??
           'N/A', // SQL Column: no_of_votes
       imdbId: (json['id'] as int?).toString() ?? 'N/A',
