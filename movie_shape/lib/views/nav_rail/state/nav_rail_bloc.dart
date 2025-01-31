@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
+import 'package:movie_shape/views/add_film/add_film_page.dart';
 import 'package:movie_shape/views/homepage/home_page.dart';
 import 'package:movie_shape/views/favourites/favourites_page.dart';
 import 'package:movie_shape/views/watchlist/watchlist_page.dart';
@@ -22,6 +23,8 @@ class NavRailBloc extends Bloc<NavRailEvent, NavRailState> {
           emit(DisplaySelectedPage(event.selectedIndex, FavouritesPage()));
         case 2:
           emit(DisplaySelectedPage(event.selectedIndex, WatchlistPage()));
+        case 3:
+          emit(DisplaySelectedPage(event.selectedIndex, AddFilmPage()));
         default:
           emit(NavRailError('no page found'));
       }

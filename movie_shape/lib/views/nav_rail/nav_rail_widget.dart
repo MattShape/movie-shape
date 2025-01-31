@@ -69,16 +69,47 @@ class NavRailWidget extends StatelessWidget {
           ),
         ),
         NavigationRailDestination(
-            icon: Icon(
-              Icons.bookmark_border_rounded,
-              size: 36,
+            icon: Padding(
+              padding: EdgeInsets.only(bottom: 36),
+              child: Icon(
+                Icons.bookmark_border_rounded,
+                size: 36,
+              ),
             ),
-            selectedIcon: Icon(
-              Icons.bookmark_rounded,
-              size: 36,
+            selectedIcon: Padding(
+              padding: EdgeInsets.only(bottom: 36),
+              child: Icon(
+                Icons.bookmark_rounded,
+                size: 36,
+              ),
             ),
-            label: Text("Watch List",
-                style: TextStyle(fontSize: AppConstants.bodySize))),
+            label: Padding(
+              padding: EdgeInsets.only(bottom: 36),
+              child: Text("Watch List",
+                  style: TextStyle(fontSize: AppConstants.bodySize)),
+            )),
+        NavigationRailDestination(
+            icon: Padding(
+              padding: EdgeInsets.only(bottom: 36),
+              child: Icon(
+                Icons.add_to_photos_outlined,
+                size: 36,
+              ),
+            ),
+            selectedIcon: Padding(
+              padding: EdgeInsets.only(bottom: 36),
+              child: Icon(
+                Icons.add_to_photos_rounded,
+                size: 36,
+              ),
+            ),
+            label: Padding(
+              padding: EdgeInsets.only(bottom: 36),
+              child: Text("Add film",
+                  style: TextStyle(
+                    fontSize: AppConstants.bodySize,
+                  )),
+            )),
         NavigationRailDestination(
             disabled: true,
             icon: Icon(
