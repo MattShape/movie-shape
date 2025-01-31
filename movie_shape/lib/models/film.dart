@@ -59,8 +59,8 @@ class Film {
         'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
 
     var film = Film(
-      title: json['title'] as String? ?? 'N/A',
-      year: (json['release_date'] as int?).toString(),
+      title: json['Title'] as String? ?? 'N/A',
+      year: json['Year'] as String? ?? 'N/A',
       rated: json['Rated'] as String? ?? 'N/A',
       released: json['Released'] as String? ?? 'N/A',
       runtime: json['Runtime'] as String? ?? 'N/A',
@@ -104,7 +104,7 @@ class Film {
       metascore: json['Metascore'] as String? ?? 'N/A',
       imdbRating: json['imdbRating'] as String? ?? 'N/A',
       imdbVotes: json['imdbVotes'] as String? ?? 'N/A',
-      imdbId: (json['id'] as int?).toString(),
+      imdbId: json['imdbID'] as String? ?? 'N/A',
       type: json['Type'] as String? ?? 'N/A',
       dvd: json['DVD'] as String? ?? 'N/A',
       boxOffice: json['BoxOffice'] as String? ?? 'N/A',
@@ -117,8 +117,8 @@ class Film {
 
   Map<String, dynamic> toJson() {
     return {
-      'title': title,
-      'release_date': year,
+      'Title': title,
+      'Year': year,
       'Rated': rated,
       'Released': released,
       'Runtime': runtime,
@@ -135,7 +135,7 @@ class Film {
       'Metascore': metascore,
       'imdbRating': imdbRating,
       'imdbVotes': imdbVotes,
-      'id': int.parse(imdbId),
+      'imdbID': imdbId,
       'Type': type,
       'DVD': dvd,
       'BoxOffice': boxOffice,
