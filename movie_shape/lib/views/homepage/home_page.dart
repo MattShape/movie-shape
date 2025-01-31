@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_shape/repository/server_film_repo.dart';
 import 'package:movie_shape/views/homepage/home_view.dart';
 import 'package:movie_shape/views/homepage/state/home_bloc/home_bloc.dart';
 
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => HomeBloc(),
+          create: (context) => HomeBloc(filmRepo: ServerFilmRepo()),
         ),
       ],
       child: HomeView(),
