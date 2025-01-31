@@ -8,6 +8,36 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import "../models/film_search.dart";
 
+FilmSummary summaryFromJson(Map<String, dynamic> json) {
+  const String defaultPosterUrl =
+      'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
+
+  var filmSummary = FilmSummary(
+    title: json['Title'] ?? 'Unknown Title',
+    year: json['Year'] ?? 'Unknown Year',
+    type: json['Type'] ?? 'Unknown Type',
+    imdbID: json['imdbID'] ?? 'Unknown imdbID',
+    // if response is 'N/A' set to default poster, if null
+    poster: Uri.tryParse(json['Poster'] ?? '')?.hasAbsolutePath == true
+        ? json['Poster']
+        : defaultPosterUrl,
+  );
+
+  return filmSummary;
+}
+
+FilmsSearch searchFromJson(Map<String, dynamic> json) {
+  return FilmsSearch(
+    // convert JSON list into FilmSummary class
+    films: (json['Search'] as List<dynamic>?)
+            ?.map((item) => summaryFromJson(item as Map<String, dynamic>))
+            .toList() ??
+        [],
+    totalResults: json['totalResults'] ?? '0',
+    response: json['Response'] ?? 'False',
+  );
+}
+
 // Repository for handling API requests with OMDb API
 class FilmRepoImplemented implements FilmRepo {
   static const String _apiKey = "f7594dee";
@@ -33,6 +63,7 @@ class FilmRepoImplemented implements FilmRepo {
     }
   }
 
+  @override
   Future<List<FilmSummary>> searchFilmsByTitle(
       {required String searchQuery}) async {
     try {
@@ -40,8 +71,7 @@ class FilmRepoImplemented implements FilmRepo {
           Uri.parse("$_baseUrl?apikey=$_apiKey&type=movie&s=$searchQuery"));
 
       if (response.statusCode == 200) {
-        FilmsSearch searchResponse =
-            FilmsSearch.fromJson(jsonDecode(response.body));
+        FilmsSearch searchResponse = searchFromJson(jsonDecode(response.body));
         return searchResponse.films;
       } else {
         throw Exception("Fail");
@@ -176,5 +206,17 @@ class FilmRepoImplemented implements FilmRepo {
     } catch (e) {
       throw Exception('Failed to remove film from favourites: ${e.toString()}');
     }
+  }
+
+  @override
+  Future<void> addFilm({required Film film}) {
+    // TODO: implement addMovie
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> removeFilm({required int id}) {
+    // TODO: implement removeMovie
+    throw UnimplementedError();
   }
 }

@@ -10,4 +10,6 @@ abstract class FilmRepo {
   Future<List<FilmSummary>?> getWatchlistFilms();
   Future<void> addFilmToWatchlist({required FilmSummary film});
   Future<void> removeFilmFromWatchlist({required FilmSummary film});
+  Future<void> addFilm({required Film film});
+  Future<void> removeFilm({required int id});
 }

@@ -259,4 +259,52 @@ class ServerFilmRepo implements FilmRepo {
       throw Exception("Failed to load favourites: ${e.toString()}");
     }
   }
+
+  @override
+  Future<void> addFilm({required Film film}) async {
+    try {
+      final response = await http.post(Uri.parse("$_baseUrl/movies/add-movie"),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: jsonEncode(
+            {
+              "title": film.title,
+              "description": film.plot,
+              "release_date": int.parse(film.year),
+              "genre": film.genre,
+              "rating": double.parse(film.imdbRating)
+            },
+          ));
+      if (response.statusCode != 200) {
+        throw Exception("failed to add film");
+      }
+    } catch (e) {
+      throw Exception('Failed to add film to the server: ${e.toString()}');
+    }
+  }
+
+  @override
+  Future<void> removeFilm({required int id}) async {
+    try {
+      final response = await http.post(
+          Uri.parse("$_baseUrl/movies/remove-movie"),
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: jsonEncode(
+            {
+              "movie_id": id,
+            },
+          ));
+
+      if (response.statusCode != 200) {
+        throw Exception("failed to remove film");
+      }
+    } catch (e) {
+      throw Exception('Failed to remove film from the server: ${e.toString()}');
+    }
+  }
 }
